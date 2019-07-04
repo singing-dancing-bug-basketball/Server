@@ -1,6 +1,7 @@
 package exam.server.Controller;
 
 import com.alibaba.fastjson.JSONObject;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -10,15 +11,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.ArrayList;
 import java.util.List;
 
+@Controller
 public class TeacherController {
 
     @RequestMapping("/teacher")
     public String index_(){
-        return "teacher/login";
+        return "login";
     }
 
 
-    @PostMapping(value = "/login",consumes = "application/json;charset=UTF-8;")
+    @PostMapping(value = "teacher/login",consumes = "application/json;charset=UTF-8;")
     @ResponseBody
     public String login(@RequestBody JSONObject jsonObject){
         if(jsonObject.get("id").equals("123456")&&jsonObject.get("password").equals("123456")){
