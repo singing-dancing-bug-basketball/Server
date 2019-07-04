@@ -37,14 +37,50 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li><a href="../teacher/index">首页</a></li>
+                    <li><a href="http://localhost/index">首页</a></li>
                     <li class="active"><a href="#">题库</a></li>
-                    <li><a href="../teacher/teacher_paper/list">试卷</a></li>
-                    <li><a href="../teacher/test/list">测试</a></li>
+                    <li><a href="http://localhost/papers">试卷</a></li>
+                    <li><a href="http://localhost/exams">测试</a></li>
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                
+                <div th:each="question,iterStat:${question}">
+                    <div class="panel panel-default">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading" th:text="题目+${question.question_id}"></div>
+                        <div class="panel-body">
+                            <p th:text="${question.stem}"></p>
+                        </div>
+
+                        <!-- List group -->
+                        <ul class="list-group">
+                            <li class="list-group-item">Cras justo odio</li>
+                            <li class="list-group-item">Dapibus ac facilisis in</li>
+                            <li class="list-group-item">Morbi leo risus</li>
+                            <li class="list-group-item">Porta ac consectetur ac</li>
+                            <li class="list-group-item">Vestibulum at eros</li>
+                        </ul>
+                    </div>
+                </div>
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li>
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">...</a></li>
+                        <li><a href="#">5</a></li>
+                        <li>
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
         </div>
     </div>
