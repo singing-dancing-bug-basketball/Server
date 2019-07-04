@@ -6,7 +6,6 @@ function login() {
     }
     else{
         var data = JSON.stringify({"id":user,"password":password});
-        console.log(data)
         $.ajax({
                 type: "POST",
                 url: "/login",
