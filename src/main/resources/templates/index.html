@@ -27,9 +27,10 @@
                 <a class="navbar-brand" href="#">教师题库</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
-                <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search...">
-                </form>
+                <div class="navbar-form navbar-right">
+                    <input type="text" id="name" class="form-control" placeholder="Search...">
+                    <image class="" src="../static/img/search.png" style="width: 30px;height:30px" onclick="search()" />
+                </div>
             </div>
         </div>
     </nav>
@@ -44,10 +45,60 @@
                     <li><a href="../exams">测试</a></li>
                 </ul>
             </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div th:if="${#lists.isEmpty(exam)}">
+                    <h1>还没有进行过测试</h1>
+                </div>
+                <div th:if="${not #lists.isEmpty(exam)}">
+                    <h1 class="page-header">总体</h1>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>测试题目</th>
+                                    <th>测试总分</th>
+                                    <th>开始时间</th>
+                                    <th>结束时间</th>
+                                    <th>持续时长</th>
+                                    <th>平均得分</th>
+                                    <th>最高得分</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:object="${exam}">
+                                    <td th:text="*{title}"></td>
+                                    <td th:text="*{scores}"></td>
+                                    <td th:text="*{beginning}"></td>
+                                    <td th:text="*{ending}"></td>
+                                    <td th:text="*{duration}"></td>
+                                    <td th:text="*{average}"></td>
+                                    <td th:text="*{max}"></td>
+                                </tr>
 
-            <div id="extwaiimpotscp" style="display:none" v="{3596"
-                f="ZXpNMU9UWm1PREV3TFdKbU5UQXRORGRsTWkxaU5UUmhMVEl4TWpobFltUmpOVEUzT1gwPQ==" q="5f007b63" c="42.92"
-                i="53.52" u="2.128" s="19060320" w="false" m="BMe=" vn="adgrd"></div>
+                            </tbody>
+                        </table>
+                    </div>
+                    <h2>具体情况</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>排名</th>
+                                <th>学号</th>
+                                <th>姓名</th>
+                                <th>得分</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="student:${students}">
+                                <td th:text="${student.ranking}"></td>
+                                <td th:text="${student.id}"></td>
+                                <td th:text="${student.name}"></td>
+                                <td th:text="${student.score}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 </body>
