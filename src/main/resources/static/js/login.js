@@ -8,7 +8,7 @@ function login() {
         var data = JSON.stringify({"id":user,"password":password});
         $.ajax({
                 type: "POST",
-                url: "/login",
+                url: "/teacher/login",
                 contentType: "application/json;charset=UTF-8;",
                 data: data,
                 success:function (data) {

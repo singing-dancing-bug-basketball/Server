@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
     @Controller
     public class LoginController {
 
-        @PostMapping(value = "/login",consumes = "application/json;charset=UTF-8;")
+        @PostMapping(value = "/teacher/login",consumes = "application/json;charset=UTF-8;")
         @ResponseBody
         public String login(@RequestBody JSONObject jsonObject){
             System.out.println(jsonObject);
