@@ -8,12 +8,12 @@ function login() {
         var data = JSON.stringify({"id":user,"password":password});
         $.ajax({
                 type: "POST",
-                url: "/teacher/login",
+                url: "/login",
                 contentType: "application/json;charset=UTF-8;",
                 data: data,
                 success:function (data) {
-                    if(data.status==200)
-                        window.location.href="/teacher/index"
+                    if(data=="success")
+                        window.location.href="http://localhost/index"
                     else{
                         alert("账号或密码有误，请检查后重新输入");
                     }

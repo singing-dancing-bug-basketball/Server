@@ -3,7 +3,7 @@ function search() {
     if(name !=""){
         $.ajax({
             type:"GET",
-            url:"/teacher/search/searchName",
+            url:"http://localhost/index/studentName",
             contentType: "application/json;charset=UTF-8;",
             data:JSON.stringify({"name":name}),
             success:function (data) {
