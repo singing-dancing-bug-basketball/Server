@@ -9,7 +9,7 @@
     <script src="../static/js/jquery-3.4.1.min.js"></script>
     <script src="../static/js/popper.min.js"></script>
     <script src="../static/js/bootstrap.min.js"></script>
-    <script src="../static/js/index.js"></script>
+    <script src="../static/js/questions.js"></script>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <div th:each="question,iterStat:${question}">
+                <div th:each="question:${question}">
                     <div class="panel panel-default">
                         <!-- Default panel contents -->
                         <div class="panel-heading" th:text="题目+${question.question_id}"></div>
@@ -53,29 +53,21 @@
                         </div>
 
                         <!-- List group -->
-                        <ul class="list-group">
-                            <li class="list-group-item">Cras justo odio</li>
-                            <li class="list-group-item">Dapibus ac facilisis in</li>
-                            <li class="list-group-item">Morbi leo risus</li>
-                            <li class="list-group-item">Porta ac consectetur ac</li>
-                            <li class="list-group-item">Vestibulum at eros</li>
+                        <ul class="list-group" th:each="selection:${question.selections}">
+                            <li class="list-group-item" th:text="${selection}"></li>
                         </ul>
+                        <li class="list-group-item" th:text="正确答案:${question.answer}"></li>
                     </div>
                 </div>
                 <nav aria-label="Page navigation">
-                    <ul class="pagination">
+                    <ul class="pagination" id="select">
                         <li>
-                            <a href="#" aria-label="Previous">
+                            <a aria-label="Previous"  id="before">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">...</a></li>
-                        <li><a href="#">5</a></li>
-                        <li>
-                            <a href="#" aria-label="Next">
+                        <li id="last">
+                            <a aria-label="Next"  id="after">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
