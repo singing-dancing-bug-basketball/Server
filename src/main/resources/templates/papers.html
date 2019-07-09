@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>登录系统</title>
+    <title>试卷</title>
     <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/index.css">
     <script src="../static/bootstrap/js/jquery-3.4.1.min.js"></script>
     <script src="../static/bootstrap/js/popper.min.js"></script>
     <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../static/js/index.js"></script>
+    <script src="../static/js/papers.js"></script>
+    <html xmlns:th="http://www.thymeleaf.org">
 </head>
 
 <body>
@@ -43,10 +44,46 @@
                     <li><a href="test/list">测试</a></li>
                 </ul>
             </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div th:if="${total_page} le 0">
+                    <h1>你还没有创建试卷</h1>
+                </div>
+                <div th:if="${total_page} gt 0">
+                    <h2>试卷情况</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>试卷编号</th>
+                                <th>试卷名</th>
+                                <th>时长(min)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="paper:${test_papers}">
+                                <td><a th:href="@{../(test_paper=${paper.test_paper_id})}" th:text="${paper.test_paper_id}"></a></td>
+                                <td th:text="${paper.title"></td>
+                                <td th:text="${paper.duration}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination navbar-right" id="select">
+                            <li>
+                                <a aria-label="Previous" id="before">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li id="last">
+                                <a aria-label="Next" id="after">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
 
-            <div id="extwaiimpotscp" style="display:none" v="{3596"
-                f="ZXpNMU9UWm1PREV3TFdKbU5UQXRORGRsTWkxaU5UUmhMVEl4TWpobFltUmpOVEUzT1gwPQ==" q="5f007b63" c="42.92"
-                i="53.52" u="2.128" s="19060320" w="false" m="BMe=" vn="adgrd"></div>
+
         </div>
     </div>
 </body>

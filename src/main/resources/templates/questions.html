@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>登录系统</title>
+    <title>题库</title>
     <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/css/navigation.css">
     <script src="../static/bootstrap/js/jquery-3.4.1.min.js"></script>
@@ -134,7 +134,7 @@
               </div>
             <div th:each="question:${questions}" th:if="${not #lists.isEmpty(questions)}">
                 <div class="panel panel-default" id="${question.question_id}">
-                    <div class="panel-heading" th:text="题目编号+${question.question_id}">
+                    <div class="panel-heading" th:text="题目编号+${question.question_id}">题目编号
                         <div class="btn-group btn-group-xs navbar-right" role="group">
                             <button type="button" class="btn btn-default edit">
                                     <span class="glyphicon glyphicon-pencil"

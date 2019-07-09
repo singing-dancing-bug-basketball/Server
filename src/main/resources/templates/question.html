@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录系统</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/navigation.css">
+    <script src="../static/bootstrap/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/bootstrap/js/popper.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/question.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">教师题库</a>
+            </div>
+            <d
+            iv id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <button type="button" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="index">首页</a></li>
+                    <li class="active"><a href="#">题库</a></li>
+                    <li><a href="test_paper/list">试卷</a></li>
+                    <li><a href="test/list">测试</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div>
+                    <button type="button" class="btn btn-default" >
+                        <span class="glyphicon glyphicon-chevron-left" onclick="javascript:history.back(-1);"></span>
+                    </button>
+                </div>
+                <div class="panel panel-default" id="${question_id}">
+                    <div class="panel-heading" th:text="题目编号+${question_id}">
+                        <div class="btn-group btn-group-xs navbar-right" role="group">
+                            <button type="button" class="btn btn-default edit">
+                                <span class="glyphicon glyphicon-pencil"
+                                    th:onclick="'javascript:editQuestion(\''+${question_id}+'\')'"></span>
+                            </button>
+                            <button type="button" class="btn btn-default delete">
+                                <span class="glyphicon glyphicon-trash"
+                                    th:onclick="'javascript:deleteQuestion(\''+${question_id}+'\')'"></span>
+                            </button>
+                            <button type="button" class="btn btn-default submit" style="display: none">
+                                <span class="glyphicon glyphicon-ok"
+                                    th:onclick="'javascript:submitQuestion(\''+${question_id}+'\')'"></span>
+                            </button>
+
+                        </div>
+                    </div>
+                    <div class="panel-body" style="padding: 0%">
+                        <textarea class="form-contrl content"
+                            style="border: none;resize:none;width: 100%;padding: 1% 0.5%" readonly
+                            th:text="${stem}">测试</textarea>
+                    </div>
+
+                    <!-- List group -->
+                    <ul class="list-group" th:each="selection:${selections}">
+                        <li class="list-group-item" style="padding: 0%">
+                            <input type="text" class="selections form-contrl list-group-item"
+                                style="border: none;resize:none;width: 100%" readonly th:text="${selection}">
+                        </li>
+                    </ul>
+
+                    <li class="list-group-item answer" th:text="正确答案:${answer}">正确答案
+                        <div class="row">
+                            <div class="col-lg-3" style="padding: 0% 5%">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <input type="radio" name="answer" class="check checked_1" disabled>
+                                    </span>
+                                    <input type="text" class="form-control" value="A选项" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" style="padding: 0% 5%">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <input type="radio" name="answer" class="check checked_2" disabled>
+                                    </span>
+                                    <input type="text" class="form-control" value="B选项" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" style="padding: 0% 5%">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <input type="radio" name="answer" class="check checked_3" disabled>
+                                    </span>
+                                    <input type="text" class="form-control" value="C选项" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" style="padding: 0% 5%">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <input type="radio" name="answer" class="check checked_4" disabled>
+                                    </span>
+                                    <input type="text" class="form-control" value="D选项" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
