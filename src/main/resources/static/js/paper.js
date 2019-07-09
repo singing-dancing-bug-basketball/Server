@@ -18,7 +18,9 @@ function deleteQuestion(question_id){
 }
 
 function editScore(question_id){
+    console.log(question_id)
     $("#"+question_id).find(".score").attr("disabled",false);
     $("#"+question_id).find(".editScore").hide();
+    
 }
 

@@ -60,7 +60,7 @@
                     </h2>
                 </div>
                 <div th:each="question:${questions}" th:if="${not #lists.isEmpty(questions)}">
-                    <div class="panel panel-default" id="${question.question_id}">
+                    <div class="panel panel-default" id=1 th:id="${quesion.question_id}">
                         <div class="panel-heading" th:text="题目编号+${question.question_id}">题目编号
                             <div class="btn-group btn-group-xs navbar-right delete" role="group" style="display: none">
                                 <button type="button" class="btn btn-default">
@@ -121,12 +121,28 @@
                         </li>
                         <li class="list-group-item" style="padding: 0%">
                             <p>
-                                <button type="button" class="btn btn-default btn-xs editScore" style="display:none">
-                                    <span class="glyphicon glyphicon-pencil" th:onclick="'javascript:editScore(\''+${question.question_id}+'\')'" onclick="editScore()"></span>
-                                </button>
+                                <div class="btn-group btn-group-xs delete" role="group">
+                                    <button type="button" class="btn btn-default editScore">
+                                        <span class="glyphicon glyphicon-pencil"
+                                            th:onclick="'javascript:editScore(\''+${question.question_id}+'\')'"
+                                            onclick="editScore(1)"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default submitScore"
+                                        style="display:none">
+                                        <span class="glyphicon glyphicon-pencil"
+                                            th:onclick="'javascript:editScore(\''+${question.question_id}+'\')'"
+                                            onclick="editScore(1)"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default cancelScore"
+                                        style="display:none">
+                                        <span class="glyphicon glyphicon-pencil"
+                                            th:onclick="'javascript:editScore(\''+${question.question_id}+'\')'"
+                                            onclick="editScore(1)"></span>
+                                    </button>
+                                </div>
                                 分数:
                                 <input type="text" class="score" th:text="${quesion.score}"
-                                    style="border: hidden;background: 0%" value="2" disabled>
+                                    style="border: hidden;background: 0%" value="2" style="width: 100%" disabled>
                             </p>
 
                         </li>

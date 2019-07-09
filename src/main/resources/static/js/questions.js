@@ -2,7 +2,7 @@ $(function () {
     //var total_page=[[${total_page}]];
     //var page=[[${page}]];
     //var questions=[[${questions}]]
-    var questions = [{"question_id": 1, "answer": 2}];
+    var questions = [{ "question_id": 1, "answer": 2 }];
     for (var i = 0; i < questions.length; i++) {
         var question = questions[i];
         $("#" + question.question_id).children(".answer").find(".checked_" + question.answer).attr("checked", "true");
@@ -54,7 +54,7 @@ function editQuestion(question_id) {
 function deleteQuestion(question_id) {
     var f = confirm("是否确定删除该问题");
     if (f) {
-        send("../",JSON.stringify({"question_id": question_id}),"DELETE",function () {
+        send("../", JSON.stringify({ "question_id": question_id }), "DELETE", function () {
             self.location.reload();
         });
     }
@@ -66,13 +66,13 @@ function submitQuestion(question_id) {
     var pattern = /\d/;
     var answer = Number(father.find("input[name='answer']:checked")[0].className.match(pattern)[0]);
     var selections = father.find(".selections");
-    var selectionJson={};
-    for(var i=0;i<selections.length;i++){
-        var index=i+1;
-        selectionJson[index]=selections[i].value;
+    var selectionJson = {};
+    for (var i = 0; i < selections.length; i++) {
+        var index = i + 1;
+        selectionJson[index] = selections[i].value;
     }
-    var question={"question_id":question_id,"stem":stem,"selections":selectionJson,answer:answer};
-    send("../",JSON.stringify(question),"PUT",function () {
+    var question = { "question_id": question_id, "stem": stem, "selections": selectionJson, answer: answer };
+    send("../", JSON.stringify(question), "PUT", function () {
         alert("成功修改题目");
         father.find(".content").attr("readonly", true);
         father.find(".selections").attr("readonly", true);
@@ -83,7 +83,7 @@ function submitQuestion(question_id) {
     });
 }
 
-function send(url,data,method,callback){
+function send(url, data, method, callback) {
     $.ajax({
         type: method,
         url: url,
@@ -98,7 +98,7 @@ function send(url,data,method,callback){
 }
 
 function addQuestion() {
-    document.getElementById("add").style.display="block";
+    document.getElementById("add").style.display = "block";
 }
 
 function submitAdd() {
@@ -107,18 +107,18 @@ function submitAdd() {
     var pattern = /\d/;
     var answer = Number(father.find("input[name='answer']:checked")[0].className.match(pattern)[0]);
     var selections = father.find(".selections");
-    var selectionJson={};
-    for(var i=0;i<selections.length;i++){
-        var index=i+1;
-        selectionJson[index]=selections[i].value;
+    var selectionJson = {};
+    for (var i = 0; i < selections.length; i++) {
+        var index = i + 1;
+        selectionJson[index] = selections[i].value;
     }
-    var question={"stem":stem,"selections":selectionJson,answer:answer};
-    send("../",JSON.stringify(question),"POST",function () {
-        document.getElementById("add").style.display="none";
+    var question = { "stem": stem, "selections": selectionJson, answer: answer };
+    send("../", JSON.stringify(question), "POST", function () {
+        document.getElementById("add").style.display = "none";
         self.location.reload();
     })
 }
 
 function cancelAdd() {
-    document.getElementById("add").style.display="none";
+    document.getElementById("add").style.display = "none";
 }
