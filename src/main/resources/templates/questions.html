@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>题库</title>
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/navigation.css">
-    <script src="../static/bootstrap/js/jquery-3.4.1.min.js"></script>
-    <script src="../static/bootstrap/js/popper.min.js"></script>
-    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../static/js/questions.js"></script>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/navigation.css">
+    <script src="/static/bootstrap/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/bootstrap/js/popper.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js/questions.js"></script>
 </head>
 
 <body>
@@ -134,8 +134,7 @@
               </div>
             <div th:each="question:${questions}" th:if="${not #lists.isEmpty(questions)}">
                 <div class="panel panel-default" id="${question.question_id}">
-                    <div class="panel-heading" th:text="题目编号+${question.question_id}">题目编号
-                        <div class="btn-group btn-group-xs navbar-right" role="group">
+                    <div class="panel-heading" th:text="题目编号+${question.question_id}">
                             <button type="button" class="btn btn-default edit">
                                     <span class="glyphicon glyphicon-pencil"
                                           th:onclick="'javascript:editQuestion(\''+${question.question_id}+'\')'"></span>

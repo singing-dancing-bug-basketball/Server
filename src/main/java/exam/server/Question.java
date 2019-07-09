@@ -6,26 +6,30 @@ import javax.persistence.*;
 public class Question {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "question_id")
-    private Integer id;
+    private int id;
 
     @Column(name = "stem")
     private String stem;
 
     @Column(name = "selection_id")
-    private Integer selection_id;
+    private int selection_id;
+
+    @Column(name = "content")
+    private String content;
+
 
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id){
+    public void setId(int id){
         this.id = id;
     }
 
     public  String getStem(){
-
         return  stem;
     }
 
@@ -39,9 +43,19 @@ public class Question {
 
     }
 
-    public void setSelection_id(Integer selection_id){
+    public void setSelection_id(int selection_id){
         this.selection_id = selection_id;
     }
 
+    public int getSelection_id() {
+        return selection_id;
+    }
 
+    public String getContent(){
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
+    }
 }
