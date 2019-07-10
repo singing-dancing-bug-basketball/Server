@@ -44,48 +44,108 @@
                     <li><a href="test/list">测试</a></li>
                 </ul>
             </div>
+
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <div th:if="${total_page} le 0">
-                    <h1>你还没有创建试卷</h1>
-                </div>
-                <div th:if="${total_page} gt 0">
-                    <h2>试卷情况</h2>
+                <div style="display: none" id="add">
+                    <h1>添加试卷</h1>
+                    <div class="input-group col-sm-6">
+                        <span class="input-group-addon" id="basic-addon1">试卷标题</span>
+                        <input type="text" class="form-control title">
+                        <span class="input-group-addon" id="basic-addon1">时长(min)</span>
+                        <input type="text" class="form-control duration">
+                        <div class="input-group-btn navbar-right">
+                            <button type="button" class="btn btn-default" id="add">
+                                <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" id="add">
+                                <span class="glyphicon glyphicon-remove" onclick="cancelAdd()"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="input-group col-sm-6">
+                        <span class="input-group-addon" id="basic-addon1">题目编号</span>
+                        <input type="text" class="form-control question_id">
+                        <span class="input-group-addon" id="basic-addon1">题目分数</span>
+                        <input type="text" class="form-control score">
+                        <div class="input-group-btn navbar-right">
+                            <button type="button" class="btn btn-default" id="add">
+                                <span class="glyphicon glyphicon-plus" onclick="addQuestion()"></span>
+                            </button>
+                        </div>
+                    </div>
+                    <h3>试卷题目</h3>
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>试卷编号</th>
-                                <th>试卷名</th>
-                                <th>时长(min)</th>
+                                <th>题目编号</th>
+                                <th>题目分数</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr th:each="paper:${test_papers}">
-                                <td><a th:href="@{../(test_paper=${paper.test_paper_id})}" th:text="${paper.test_paper_id}"></a></td>
-                                <td th:text="${paper.title"></td>
-                                <td th:text="${paper.duration}"></td>
-                            </tr>
+                        <tbody id="questions_add">
                         </tbody>
                     </table>
-                    <nav aria-label="Page navigation">
-                        <ul class="pagination navbar-right" id="select">
-                            <li>
-                                <a aria-label="Previous" id="before">
-                                    <span aria-hidden="true">&laquo;</span>
-                                </a>
-                            </li>
-                            <li id="last">
-                                <a aria-label="Next" id="after">
-                                    <span aria-hidden="true">&raquo;</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
                 </div>
+                <div id="papers">
+                    <div th:if="${total_page} le 0">
+                        <h1>你还没有创建试卷</h1>
+                    </div>
+                    <div class="btn-group navbar-right" role="group">
+                        <button type="button" class="btn btn-default" id="edit">
+                            <span class="glyphicon glyphicon-plus" onclick="addPaper()"></span>
+                        </button>
+                        <button type="button" class="btn btn-default submit" style="display: none">
+                            <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
+                        </button>
+                    </div>
+                    <div th:if="${total_page} gt 0">
+                        <h2>试卷情况</h2>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>试卷编号</th>
+                                    <th>试卷名</th>
+                                    <th>时长(min)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="paper:${test_papers}">
+                                    <td><a th:href="@{../(test_paper=${paper.test_paper_id})}"
+                                            th:text="${paper.test_paper_id}"></a></td>
+                                    <td th:text="${paper.title"></td>
+                                    <td th:text="${paper.duration}"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <nav aria-label="Page navigation">
+                            <ul class="pagination navbar-right" id="select">
+                                <li>
+                                    <a aria-label="Previous" id="before">
+                                        <span aria-hidden="true">&laquo;</span>
+                                    </a>
+                                </li>
+                                <li id="last">
+                                    <a aria-label="Next" id="after">
+                                        <span aria-hidden="true">&raquo;</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
             </div>
 
 
         </div>
     </div>
 </body>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var total_page = [[${ total_page }]];
+        var page = [[${ page }]];
+        initData(total_page, page);
+    });
+</script>
 
 </html>

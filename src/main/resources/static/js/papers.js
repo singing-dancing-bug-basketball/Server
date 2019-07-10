@@ -1,8 +1,5 @@
-$(function () {
-    //var total_page=[[${total_page}]];
-    //var page=[[${page}]];
-    //var test_papers=[[${test_papers}]]
-    var test_papers = [{"test_paper_id": 1, "title": "test","duration":20}];
+var questions = [];
+function initData(total_page, page) {
     var total_page = 10;
     var page = 5;
     var begin;
@@ -35,4 +32,59 @@ $(function () {
         }
         $("#last").before(li);
     }
-});
+}
+
+function addPaper() {
+    $("#add").show();
+    $("#papers").hide();
+}
+
+function addQuestion() {
+    var question_id = $("#add").find(".question_id")[0].value;
+    var score = $("#add").find(".score")[0].value;
+    if (question != "" && score != "") {
+        var question = JSON.stringify({ question_id: question_id, score: parseInt(score) });
+        questions.push(question);
+        alert("成功添加题目");
+        $("#questions_add").append($("<tr><td>" + question_id + "</td>" + "<td>" + score + "</td></tr>"));
+        $("#add").find(".question_id")[0].value = "";
+        $("#add").find(".score")[0].value = "";
+    }
+}
+
+function submitAdd() {
+    var title = $("#add").find(".title")[0].value;
+    var duration = $("#add").find(".duration")[0].value;
+    if (title != "" && duration != "") {
+        var paper = JSON.stringify({ title: title, duration: parseInt(duration), questions: questions });
+        console.log(paper);
+        $.ajax({
+            type: "POST",
+            url: "../",
+            contentType: "application/json;charset=UTF-8;",
+            data: paper,
+            success: function (data) {
+                alert("新增试卷ID为" + data.test_paper_id);
+                $("#add").find(".title")[0].value = "";
+                $("#add").find(".duration")[0].value = "";
+                $("#add").find(".question_id")[0].value = "";
+                $("#add").find(".score")[0].value = "";
+                questions=[];
+                self.location.reload();
+            }
+        })
+    }
+    else {
+        alert("标题及时长不能为空");
+    }
+}
+
+function cancelAdd() {
+    questions = [];
+    $("#add").find(".title")[0].value = "";
+    $("#add").find(".duration")[0].value = "";
+    $("#add").find(".question_id")[0].value = "";
+    $("#add").find(".score")[0].value = "";
+    $("#add").hide();
+    $("#papers").show();
+}

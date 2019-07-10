@@ -1,7 +1,4 @@
-$(function () {
-    //var total_page=[[${total_page}]];
-    //var page=[[${page}]];
-    //var questions=[[${questions}]]
+function initData(total_page,page,questions){
     var questions = [{ "question_id": 1, "answer": 2 }];
     for (var i = 0; i < questions.length; i++) {
         var question = questions[i];
@@ -39,7 +36,7 @@ $(function () {
         }
         $("#last").before(li);
     }
-});
+}
 
 function editQuestion(question_id) {
     var fatherNode = $("#" + question_id);
@@ -88,7 +85,7 @@ function send(url, data, method, callback) {
         type: method,
         url: url,
         contentType: "application/json;charset=UTF-8;",
-        data: method,
+        data: data,
         success: function (data) {
             if (data.status === 200) {
                 callback();

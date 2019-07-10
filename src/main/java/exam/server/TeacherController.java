@@ -19,6 +19,9 @@ public class TeacherController {
     private QuestionService questionService;
     @Autowired
     private Question_ownershipService question_ownershipService;
+    @Autowired
+    private Test_paperService test_paperService;
+
 
     @RequestMapping(value = "/teacher",method = RequestMethod.GET)
     public String index_(){
@@ -144,6 +147,7 @@ public class TeacherController {
         String stem;
         List<String> selections;
         int answer;
+        int score;
 
         public Questionslei(int question_id,String stem,List<String> selections,int answer){
 
@@ -152,6 +156,24 @@ public class TeacherController {
             this.selections = selections;
             this.answer = answer;
 
+        }
+
+        public Questionslei(int question_id,String stem,List<String> selections,int answer,int score){
+
+            this.question_id =question_id;
+            this.stem = stem;
+            this.selections = selections;
+            this.answer = answer;
+            this.score = score;
+
+        }
+
+        public int getScore() {
+            return score;
+        }
+
+        public void setScore(int score) {
+            this.score = score;
         }
 
         public void setStem(String stem) {
@@ -188,6 +210,53 @@ public class TeacherController {
         }
 
     }
+
+    //获取某张试卷
+    @RequestMapping(value = "/teacher/test_paper/{test_paper_id}")
+    public String getTest_paper(@PathVariable("test_paper_id") Integer test_paper_id ,Model model){
+
+       model.addAttribute("title",test_paperService.findTest_paperById(test_paper_id).getTitle());
+       model.addAttribute("duration",test_paperService.findTest_paperById(test_paper_id).getDuration());
+       List<Questionslei> a = new ArrayList<Questionslei>();
+       List<Integer> b = new ArrayList<>();
+
+       for(Question_ownership c : question_ownershipService.findAll()){
+
+           if(c.getQuestionOwnerMultiKeys().getTest_paper_id()==test_paper_id){
+               b.add(c.getQuestionOwnerMultiKeys().getQuestion_id());
+           }
+       }
+       for(Integer d : b){
+           String[] f = questionService.findQuestionById(d).getContent().split("@caixukun@");
+           List<String> g = Arrays.asList(f);
+           Questionslei e = new Questionslei(d,questionService.findQuestionById(d).getStem(),g,
+                   questionService.findQuestionById(d).getSelection_id());
+           a.add(e);
+       }
+       model.addAttribute("questions",a);
+       return "paper";
+    }
+
+    //添加新的试卷
+    @RequestMapping(value = "/teacher/test_paper/")
+    public JSONObject addTest_paper(@RequestBody JSONObject jsonObject){
+        JSONObject re = new JSONObject();
+
+        Test_paper  newTest_paper = new Test_paper();
+        newTest_paper.setTitle(jsonObject.get("title").toString());
+        newTest_paper.setDuration(Integer.valueOf(jsonObject.get("duration").toString()));
+        test_paperService.addTest_paper(newTest_paper);
+        Question_ownership newQuestion_ownership = new Question_ownership();
+
+
+        re.put("test_paper_id",newTest_paper.getId());
+        return  re;
+
+
+    }
+
+
+
 
 
 

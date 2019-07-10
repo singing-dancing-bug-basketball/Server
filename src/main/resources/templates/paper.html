@@ -32,8 +32,8 @@
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
                     <li><a href="index">首页</a></li>
-                    <li class="active"><a href="#">题库</a></li>
-                    <li><a href="test_paper/list">试卷</a></li>
+                    <li><a href="quesion/list">题库</a></li>
+                    <li  class="active"><a href="#">试卷</a></li>
                     <li><a href="test/list">测试</a></li>
                 </ul>
             </div>
@@ -45,19 +45,48 @@
                     <button type="button" class="btn btn-default submit" style="display: none">
                         <span class="glyphicon glyphicon-ok" onclick="submitEdit()"></span>
                     </button>
-                    <button type="button" class="btn btn-default cancel" style="display: none">
-                        <span class="glyphicon glyphicon-remove" onclick="cancelEdit()"></span>
-                    </button>
                 </div>
                 <div>
                     <h1>试卷名:
-                        <input type="text" class="edit" th:text="${title}" style="border: hidden;background: 0%"
-                            value="测试" disabled>
+                        <input type="text" class="edit" id="title" th:text="${title}"
+                            style="border: hidden;background: 0%" value="测试" disabled>
                     </h1>
                     <h2>持续时长(min):
-                        <input type="text" class="edit" th:text="${duration}" style="border: hidden;background: 0%"
-                            value="50" disabled>
+                        <input type="text" class="edit" id="duration" th:text="${duration}"
+                            style="border: hidden;background: 0%" value="50" disabled>
                     </h2>
+                </div>
+                <div class="add" style="display: none">
+                        <div class="btn-group" role="group">
+                                <button type="button" class="btn btn-default">
+                                    <span class="glyphicon glyphicon-plus" onclick="addQuestion()"></span>
+                                </button>
+                            </div>
+                            <div class="input-group col-sm-6" id="add" style="display: none">
+                                <span class="input-group-addon" id="basic-addon1">题目id</span>
+                                <input type="text" class="form-control id">
+                                <span class="input-group-addon" id="basic-addon1">题目分数</span>
+                                <input type="text" class="form-control score">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default" id="add">
+                                        <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default" id="add">
+                                        <span class="glyphicon glyphicon-remove" onclick="cancelAdd()"></span>
+                                    </button>
+                                </div>
+                            </div>
+                            <h3>新增题目</h3>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>题目编号</th>
+                                        <th>题目分数</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="questions_add">
+                                </tbody>
+                            </table>
                 </div>
                 <div th:each="question:${questions}" th:if="${not #lists.isEmpty(questions)}">
                     <div class="panel panel-default" id=1 th:id="${quesion.question_id}">
@@ -65,7 +94,8 @@
                             <div class="btn-group btn-group-xs navbar-right delete" role="group" style="display: none">
                                 <button type="button" class="btn btn-default">
                                     <span class="glyphicon glyphicon-trash"
-                                        th:onclick="'javascript:deleteQuestion(\''+${question.question_id}+'\')'"></span>
+                                        th:onclick="'javascript:deleteQuestion(\''+${question.question_id}+'\')'"
+                                        onclick="deleteQuestion(1)"></span>
                                 </button>
                             </div>
                         </div>
@@ -122,22 +152,15 @@
                         <li class="list-group-item" style="padding: 0%">
                             <p>
                                 <div class="btn-group btn-group-xs delete" role="group">
-                                    <button type="button" class="btn btn-default editScore">
+                                    <button type="button" class="btn btn-default editScore" style="display:none">
                                         <span class="glyphicon glyphicon-pencil"
                                             th:onclick="'javascript:editScore(\''+${question.question_id}+'\')'"
                                             onclick="editScore(1)"></span>
                                     </button>
-                                    <button type="button" class="btn btn-default submitScore"
-                                        style="display:none">
-                                        <span class="glyphicon glyphicon-pencil"
-                                            th:onclick="'javascript:editScore(\''+${question.question_id}+'\')'"
-                                            onclick="editScore(1)"></span>
-                                    </button>
-                                    <button type="button" class="btn btn-default cancelScore"
-                                        style="display:none">
-                                        <span class="glyphicon glyphicon-pencil"
-                                            th:onclick="'javascript:editScore(\''+${question.question_id}+'\')'"
-                                            onclick="editScore(1)"></span>
+                                    <button type="button" class="btn btn-default submitScore" style="display:none">
+                                        <span class="glyphicon glyphicon-ok"
+                                            th:onclick="'javascript:submitScore(\''+${question.question_id}+'\')'"
+                                            onclick="submitScore(1)"></span>
                                     </button>
                                 </div>
                                 分数:
@@ -167,5 +190,14 @@
         </div>
     </div>
 </body>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var title = [[${ title }]];
+        var duration = [[${ duration }]];
+        var test_paper_id = [[${ test_paper_id }]];
+        var questions = [[${ questions }]];
+        initData(title, duration, test_papere_id);
+    });
+</script>
 
 </html>

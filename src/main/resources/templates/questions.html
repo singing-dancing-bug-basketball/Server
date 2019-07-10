@@ -13,40 +13,40 @@
 </head>
 
 <body>
-<nav class="navbar navbar-inverse navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
                     aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#">教师题库</a>
-        </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            <form class="navbar-form navbar-right">
-                <input type="text" class="form-control" placeholder="Search...">
-                <button type="button" class="btn btn-default" aria-label="Left Align">
-                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-            </form>
+                <a class="navbar-brand" href="#">教师题库</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <button type="button" class="btn btn-default" aria-label="Left Align">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </form>
+            </div>
         </div>
-    </div>
-</nav>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-sm-3 col-md-2 sidebar">
-            <ul class="nav nav-sidebar">
-                <li><a href="index">首页</a></li>
-                <li class="active"><a href="#">题库</a></li>
-                <li><a href="test_paper/list">试卷</a></li>
-                <li><a href="test/list">测试</a></li>
-            </ul>
-        </div>
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <div th:if="${#lists.isEmpty(questions)}">
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="index">首页</a></li>
+                    <li class="active"><a href="#">题库</a></li>
+                    <li><a href="test_paper/list">试卷</a></li>
+                    <li><a href="test/list">测试</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div th:if="${#lists.isEmpty(questions)}">
                 <h1>题库空空如也</h1>
             </div>
             <div>
@@ -135,17 +135,15 @@
             <div th:each="question:${questions}" th:if="${not #lists.isEmpty(questions)}">
                 <div class="panel panel-default" id="${question.question_id}">
                     <div class="panel-heading" th:text="题目编号+${question.question_id}">
-                            <button type="button" class="btn btn-default edit">
-                                    <span class="glyphicon glyphicon-pencil"
-                                          th:onclick="'javascript:editQuestion(\''+${question.question_id}+'\')'"></span>
+
+                            <button type="button" class="btn btn-default edit" th:onclick="'javascript:editQuestion(\''+${question.question_id}+'\')'">
+                                    <span class="glyphicon glyphicon-pencil"></span>
                             </button>
-                            <button type="button" class="btn btn-default delete">
-                                    <span class="glyphicon glyphicon-trash"
-                                          th:onclick="'javascript:deleteQuestion(\''+${question.question_id}+'\')'"></span>
+                            <button type="button" class="btn btn-default delete" th:onclick="'javascript:deleteQuestion(\''+${question.question_id}+'\')'">
+                                    <span class="glyphicon glyphicon-trash"></span>
                             </button>
-                            <button type="button" class="btn btn-default submit" style="display: none">
-                                    <span class="glyphicon glyphicon-ok"
-                                          th:onclick="'javascript:submitQuestion(\''+${question.question_id}+'\')'"></span>
+                            <button type="button" class="btn btn-default submit" style="display: none" th:onclick="'javascript:submitQuestion(\''+${question.question_id}+'\')'">
+                                    <span class="glyphicon glyphicon-ok"></span>
                             </button>
 
                         </div>
@@ -222,4 +220,12 @@
 </div>
 </body>
 
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var total_page = [[${ total_page }]];
+        var page = [[${ page }]];
+        var questions = [[${ questions }]];
+        initData(total_page, page, questions);
+    });
+</script>
 </html>
