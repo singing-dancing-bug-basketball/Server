@@ -334,6 +334,16 @@ public class TeacherController {
                     question_ownershipService.deleteQuestion_ownershipById(c.getQuestionOwnerMultiKeys());
                 }
             }
+            for(Record ba : recordService.findAll()){
+                if(ba.getRecordMultiKeys().getQuestion_id()==Integer.valueOf(b.get("question_id").toString())){
+                    RecordMultiKeys recordMultiKeys = new RecordMultiKeys();
+                    recordMultiKeys.setQuestion_id(Integer.valueOf(b.get("question_id").toString()));
+                    recordMultiKeys.setTest_id(ba.getRecordMultiKeys().getTest_id());
+                    recordMultiKeys.setStudent_id(ba.getRecordMultiKeys().getStudent_id());
+                    recordService.deleteRecordById(recordMultiKeys);
+                }
+
+            }
         }
 
         Test_paper test_paper = new Test_paper();
@@ -635,7 +645,8 @@ public class TeacherController {
         }
 
         model.addAttribute("student_id",student_id);
-        model.addAttribute(studentService.findStudentById(student_id).getName());
+        model.addAttribute("name",studentService.findStudentById(student_id).getName());
+
 
         return "student";
     }
@@ -769,11 +780,12 @@ public class TeacherController {
 
 
         Test cur = testService.curentTest();
+
         String start_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cur.getStart_time());
         String end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cur.getEnd_time());
 
-
         List<String> testStudents = recordService.testStudents(cur.getId());
+
         List<Grade> students = new ArrayList<>();
 
         for(String a : testStudents){
@@ -781,6 +793,7 @@ public class TeacherController {
                     ,recordService.testStudentScore(cur.getId(),a),1,studentService.findStudentById(a).getId());
            students.add(grade);
         }
+
         //依据学生成绩排序
         Collections.sort(students, new Comparator<Grade>() {
 
