@@ -3,10 +3,10 @@ var title;
 var duration;
 var test_papere_id=1;
 var questions=[];
-function initData(title,duration,test_papere_id){
+function initData(title,duration,test_paper_id){
     this.title=title;
     this.duration=duration;
-    this.test_papere_id=test_papere_id;
+    this.test_paper_id=test_paper_id;
 }
 function editPaper(){
     $(".edit").attr("disabled",false);

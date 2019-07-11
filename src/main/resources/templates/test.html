@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录系统</title>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script src="../static/bootstrap/js/jquery-3.4.1.min.js"></script>
+    <script src="../static/bootstrap/js/popper.min.js"></script>
+    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../static/js/test.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">教师题库</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right">
+                    <input type="text" class="form-control" placeholder="Search...">
+                    <image class="" src="../static/img/search.png" style="width: 30px;height:30px" onclick="" />
+                </form>
+            </div>
+        </div>
+    </nav>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-3 col-md-2 sidebar">
+                <ul class="nav nav-sidebar">
+                    <li><a href="index">首页</a></li>
+                    <li><a href="question/list">题库</a></li>
+                    <li><a href="test_paper/list">试卷</a></li>
+                    <li class="active"><a href="#">测试</a></li>
+                </ul>
+            </div>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div class="btn-group navbar-right" role="group">
+                    <button type="button" class="btn btn-default" id="edit">
+                        <span class="glyphicon glyphicon-pencil" onclick="editTest()"></span>
+                    </button>
+                    <button type="button" class="btn btn-default" id="remove">
+                        <span class="glyphicon glyphicon-remove" onclick="removeTest()"></span>
+                    </button>
+                    <button type="button" class="btn btn-default submit" style="display: none">
+                        <span class="glyphicon glyphicon-ok" onclick="submitEdit()"></span>
+                    </button>
+                    <button type="button" class="btn btn-default cancel" id="cancel" style="display: none">
+                        <span class="glyphicon glyphicon-remove" onclick="cancelEdit()"></span>
+                    </button>
+                </div>
+                <div>
+                    <h2>测试名:
+                        <input type="text" class="edit" id="title" th:text="${test_title}"
+                            style="border: hidden;background: 0%" value="测试" disabled>
+                    </h2>
+                    <h3>试卷ID:
+                        <input type="text" class="edit" id="test_paper_id" th:text="${test_paper_id}"
+                            style="border: hidden;background: 0%" value="50" disabled>
+                    </h3>
+                    <h3>试卷名:<p th:text="${test_paper_title}"></p>
+                    </h3>
+                    <h3>时长:
+                        <input type="text" class="edit" id="duration" th:text="${duration}"
+                            style="border: hidden;background: 0%" value="50" disabled>
+                    </h3>
+                    <h3>开始时间:
+                        <input type="text" class="edit" id="start_time" th:text="${start_time}"
+                            style="border: hidden;background: 0%" value="50" disabled>
+                    </h3>
+                    <h3>结束时间:
+                        <input type="text" class="edit" id="end_time" th:text="${start_time}"
+                            style="border: hidden;background: 0%" value="50" disabled>
+                    </h3>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</body>
+<script th:inline="javascript">
+    $(document).ready(function () {
+        var test_title = [[${ test_title }]];
+        var test_paper_title = [[${ test_paper_title }]];
+        var duration = [[${ duration }]];
+        var start_time = [[${ start_time }]];
+        var end_time = [[${ end_time }]];
+        var test_paper_id = [[${ test_paper_id }]];
+        initData(test_title, test_paper_title, duration, start_time, end_time, test_paper_id);
+    });
+</script>
+
+</html>
