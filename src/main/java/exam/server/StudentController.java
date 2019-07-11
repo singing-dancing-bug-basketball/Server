@@ -37,6 +37,9 @@ public class StudentController {
         return "login";
     }
 
+
+
+
     @PostMapping(value = "student/login",consumes = "application/json;charset=UTF-8;")
     @ResponseBody
     public JSONObject login(@RequestBody JSONObject jsonObject, HttpServletResponse response){
@@ -51,6 +54,8 @@ public class StudentController {
         return re;
     }
 
+
+
     //获取某一次测试
     @RequestMapping(value = "/student/test/{test_id}")
     @ResponseBody
@@ -61,7 +66,6 @@ public class StudentController {
         }
 
         JSONObject re = new JSONObject();
-        re.put("cookie",200);
 
         re.put("title",testService.findTestById(test_id).getTitle());
         re.put("duration",testService.findTestById(test_id).getTest_paper().getDuration());
@@ -76,12 +80,14 @@ public class StudentController {
             reNei.put("question_id",a);
             reNei.put("stem",questionService.findQuestionById(a).getStem());
 
-            String[] b = questionService.findQuestionById(a).getContent().split("@caixunkun@");
+            String[] b = questionService.findQuestionById(a).getContent().split("@caixukun@");
             List<String> list = Arrays.asList(b);
             reNei.put("selections",list);
             reNei.put("answer",questionService.findQuestionById(a).getSelection_id());
             QuestionOwnerMultiKeys questionOwnerMultiKeys = new QuestionOwnerMultiKeys();
+
             questionOwnerMultiKeys.setTest_paper_id(testService.findTestById(test_id).getTest_paper().getId());
+            questionOwnerMultiKeys.setQuestion_id(a);
             reNei.put("selections",list);
             reNei.put("score",question_ownershipService.findQuestion_ownershipById(questionOwnerMultiKeys).getScore());
             jsonList.add(reNei);
@@ -91,20 +97,20 @@ public class StudentController {
         return re;
     }
 
+
+
     //获取学生的测试列表
     @RequestMapping(value = "/student/test/list/{id}")
     @ResponseBody
     public JSONObject getTestlist(@PathVariable("id") String student_id,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
+
         if(!user_name.equals("CookieTestInfo")){
             response.sendRedirect("/teacher/login/");
         }
+
         List<JSONObject> jlist = new ArrayList<>();
         List<Integer> testList = testService.getTestidList();
 
-        System.out.println(testList.size());
-        System.out.println(testList.get(0));
-        System.out.println(student_id);
-        System.out.println(recordService.existStuTest(student_id,testList.get(0)));
 
         for(int i =0;i<testList.size();i++){
 
@@ -127,10 +133,13 @@ public class StudentController {
         return re;
     }
 
+
+
+
     //获取某次测试结果
-    @RequestMapping(value = "student/record/{student_id}/{test_id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/student/record/{student_id}/{test_id}")
     @ResponseBody
-    public JSONObject getTestStu(@PathVariable("student_id") String student_id,@PathVariable("test_id") int test_id,@RequestBody JSONObject jsonObject,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
+    public JSONObject getTestStu(@PathVariable("student_id") String student_id,@PathVariable("test_id") int test_id,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
 
         if(!user_name.equals("CookieTestInfo")){
             response.sendRedirect("/teacher/login/");
@@ -143,7 +152,7 @@ public class StudentController {
             JSONObject reNei = new JSONObject();
             reNei.put("question_id",a);
             reNei.put("stem",questionService.findQuestionById(a).getStem());
-            String[] b = questionService.findQuestionById(a).getContent().split("@caixunkun@");
+            String[] b = questionService.findQuestionById(a).getContent().split("@caixukun@");
             List<String> list = Arrays.asList(b);
             reNei.put("selections",list);
             RecordMultiKeys recordMultiKeys = new RecordMultiKeys();
@@ -167,6 +176,10 @@ public class StudentController {
         re.put("questions",jList);
         return re;
     }
+
+
+
+
 
     //学生提交测试结果
     @RequestMapping(value = "student/record/",method = RequestMethod.POST)
@@ -197,10 +210,15 @@ public class StudentController {
         return re;
 
     }
+
+
+
+
+
     //:获取测试结果列表
-    @RequestMapping(value = "/student/record/list/{student id}",method = RequestMethod.GET)
+    @RequestMapping(value = "/student/record/list/{student_id}")
     @ResponseBody
-    public JSONObject getNnTestlist(@PathVariable("student_id") String student_id,@RequestBody JSONObject jsonObject,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
+    public JSONObject getNnTestlist(@PathVariable("student_id") String student_id,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
 
         if(!user_name.equals("CookieTestInfo")){
             response.sendRedirect("/teacher/login/");
