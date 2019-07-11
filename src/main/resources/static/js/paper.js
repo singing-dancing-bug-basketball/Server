@@ -47,7 +47,7 @@ function submitEdit(){
     console.log(data)
     $.ajax({
         type: "PUT",
-        url: "/teacher/test_paper",
+        url: "/teacher/test_paper/",
         contentType: "application/json;charset=UTF-8;",
         data: data,
         success: function (data) {

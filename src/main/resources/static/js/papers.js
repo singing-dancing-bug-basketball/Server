@@ -43,7 +43,7 @@ function addQuestion() {
     var question_id = $("#add").find(".question_id")[0].value;
     var score = $("#add").find(".score")[0].value;
     if (question != "" && score != "") {
-        var question = JSON.stringify({ question_id: question_id, score: parseInt(score) });
+        var question = { question_id: question_id, score: parseInt(score) };
         questions.push(question);
         alert("成功添加题目");
         $("#questions_add").append($("<tr><td>" + question_id + "</td>" + "<td>" + score + "</td></tr>"));
