@@ -4,13 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <title>试卷</title>
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/index.css">
-    <script src="../static/bootstrap/js/jquery-3.4.1.min.js"></script>
-    <script src="../static/bootstrap/js/popper.min.js"></script>
-    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../static/js/papers.js"></script>
-    <html xmlns:th="http://www.thymeleaf.org">
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/navigation.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/bootstrap/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/bootstrap/js/popper.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js/papers.js"></script>
 </head>
 
 <body>
@@ -29,7 +29,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search...">
-                    <image class="" src="../static/img/search.png" style="width: 30px;height:30px" onclick="" />
+                    <image class="" src="/static/img/search.png" style="width: 30px;height:30px" onclick="" />
                 </form>
             </div>
         </div>
@@ -64,12 +64,12 @@
                     </div>
                     <br>
                     <div class="input-group col-sm-6">
-                        <span class="input-group-addon" id="basic-addon1">题目编号</span>
+                        <span class="input-group-addon">题目编号</span>
                         <input type="text" class="form-control question_id">
-                        <span class="input-group-addon" id="basic-addon1">题目分数</span>
+                        <span class="input-group-addon">题目分数</span>
                         <input type="text" class="form-control score">
                         <div class="input-group-btn navbar-right">
-                            <button type="button" class="btn btn-default" id="add">
+                            <button type="button" class="btn btn-default">
                                 <span class="glyphicon glyphicon-plus" onclick="addQuestion()"></span>
                             </button>
                         </div>
@@ -110,9 +110,9 @@
                             </thead>
                             <tbody>
                                 <tr th:each="paper:${test_papers}">
-                                    <td><a th:href="@{../(test_paper=${paper.test_paper_id})}"
+                                    <td><a th:href="@{'../'+${paper.test_paper_id}}"
                                             th:text="${paper.test_paper_id}"></a></td>
-                                    <td th:text="${paper.title"></td>
+                                    <td th:text="${paper.title}"></td>
                                     <td th:text="${paper.duration}"></td>
                                 </tr>
                             </tbody>

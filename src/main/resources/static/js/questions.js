@@ -49,8 +49,8 @@ function deleteQuestion(question_id) {
     var f = confirm("是否确定删除该问题");
     if (f) {
         send("../", JSON.stringify({ "question_id": question_id }), "DELETE", function () {
-
-        });self.location.reload();
+            self.location.reload();
+        });
     }
 }
 
@@ -102,7 +102,7 @@ function submitAdd() {
     var selections = father.find(".selections");
     var selection=[];
     for (var i = 0; i < selections.length; i++) {
-        selection[i] = selections[i].value;
+        selection[i] = String.fromCharCode(65+i)+":"+selections[i].value;
     }
     var question = { "stem": stem, "selections": selection, answer: answer };
     send("../", JSON.stringify(question), "POST", function () {
