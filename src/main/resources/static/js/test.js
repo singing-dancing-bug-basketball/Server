@@ -1,12 +1,13 @@
 var test_title,test_paper_title,duration,start_time,end_time,test_paper_id;
 var test_id;
-function initData(test_title,test_paper_title,duration,start_time,end_time,test_paper_id){
+function initData(test_id,test_title,test_paper_title,duration,start_time,end_time,test_paper_id){
     this.test_title=test_title;
     this.test_paper_title=test_paper_title;
     this.duration=duration;
     this.start_time=start_time;
     this.end_time=end_time;
     this.test_paper_id=test_paper_id;
+    this.test_id=test_id;
 }
 function editTest(){
     $(".edit").attr("disabled",false);
@@ -43,12 +44,13 @@ function removeTest(){
     if (f) {
         $.ajax({
             type: "DELETE",
-            url: "../",
+            url: "/teacher/test",
             contentType: "application/json;charset=UTF-8;",
             data: test_id,
             success: function (data) {
                 if (data.status === 200) {
-                    callback();
+                    history.back();
+                    self.location=document.referrer;
                 }
             }
         })
@@ -60,13 +62,13 @@ function submitEdit(){
     test_paper_id=$("#test_paper_id")[0].value;
     duration=parseInt($("#duration")[0].value);
     start_time=$("#start_time")[0].value;
-    end_time==$("#end_time")[0].value;
+    end_time=$("#end_time")[0].value;
 
     var data=JSON.stringify({test_id:test_id,test_paper_id:test_paper_id,title:title,start_time:start_time,end_time:end_time});
-    console.log(data)
+    console.log(data);
     $.ajax({
         type: "PUT",
-        url: "",
+        url: "/teacher/test/",
         contentType: "application/json;charset=UTF-8;",
         data: data,
         success: function (data) {
@@ -75,4 +77,9 @@ function submitEdit(){
             }
         }
     })
+}
+
+function back() {
+    history.back();
+    self.location=document.referrer;
 }

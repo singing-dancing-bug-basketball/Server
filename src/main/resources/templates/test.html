@@ -28,7 +28,7 @@
             <div id="navbar" class="navbar-collapse collapse">
                 <form class="navbar-form navbar-right">
                     <input type="text" class="form-control" placeholder="Search...">
-                    <image class="" src="../static/img/search.png" style="width: 30px;height:30px" onclick="" />
+                    <image class="" src="/static/img/search.png" style="width: 30px;height:30px" onclick="" />
                 </form>
             </div>
         </div>
@@ -45,6 +45,11 @@
                 </ul>
             </div>
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+                <div class="btn-group" role="group">
+                    <button type="button" class="btn btn-default">
+                        <span class="glyphicon glyphicon-chevron-left" onclick="back()"></span>
+                    </button>
+                </div>
                 <div class="btn-group navbar-right" role="group">
                     <button type="button" class="btn btn-default" id="edit">
                         <span class="glyphicon glyphicon-pencil" onclick="editTest()"></span>
@@ -64,10 +69,10 @@
                         <input type="text" class="edit" id="title"
                             style="border: hidden;background: 0%" th:value="${test_title}" disabled>
                     </h2>
-                    <h3><p th:text="'试卷ID:'+${test_paper_id}"></p>
-                    <h3>试卷名:
-                        <input type="text" class="edit" id="test_paper_id"
-                               style="border: hidden;background: 0%" th:value="${test_paper_title}" disabled>
+                    <h3>试卷ID:<input type="text" class="edit" id="test_paper_id"
+                               style="border: hidden;background: 0%" th:value="${test_paper_id}" disabled>
+                    </h3>
+                    <h3><p th:text="'试卷名:'+${test_paper_title}"></p>
                     </h3>
                     <h3>时长:
                         <input type="text" class="edit" id="duration" th:value="${duration}"
@@ -90,13 +95,14 @@
 </body>
 <script th:inline="javascript">
     $(document).ready(function () {
+        var test_id=[[${test_id}]];
         var test_title = [[${ test_title }]];
         var test_paper_title = [[${ test_paper_title }]];
         var duration = [[${ duration }]];
         var start_time = [[${ start_time }]];
         var end_time = [[${ end_time }]];
         var test_paper_id = [[${ test_paper_id }]];
-        initData(test_title, test_paper_title, duration, start_time, end_time, test_paper_id);
+        initData(test_id,test_title, test_paper_title, duration, start_time, end_time, test_paper_id);
     });
 </script>
 

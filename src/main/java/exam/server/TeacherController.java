@@ -305,7 +305,7 @@ public class TeacherController {
         for(Test_paper a : test_paperService.findAll()){
 
             if(a.getId()==test_paper_id){
-               test_paperService.deleteTest_paperById(test_paper_id);
+                test_paperService.deleteTest_paperById(test_paper_id);
                 re.put("status",200);
                 return re;
             }
@@ -333,6 +333,16 @@ public class TeacherController {
                 if(c.getQuestionOwnerMultiKeys().getQuestion_id()==Integer.valueOf(b.get("question_id").toString())){
                     question_ownershipService.deleteQuestion_ownershipById(c.getQuestionOwnerMultiKeys());
                 }
+            }
+            for(Record ba : recordService.findAll()){
+                if(ba.getRecordMultiKeys().getQuestion_id()==Integer.valueOf(b.get("question_id").toString())){
+                    RecordMultiKeys recordMultiKeys = new RecordMultiKeys();
+                    recordMultiKeys.setQuestion_id(Integer.valueOf(b.get("question_id").toString()));
+                    recordMultiKeys.setTest_id(ba.getRecordMultiKeys().getTest_id());
+                    recordMultiKeys.setStudent_id(ba.getRecordMultiKeys().getStudent_id());
+                    recordService.deleteRecordById(recordMultiKeys);
+                }
+
             }
         }
 
@@ -445,7 +455,7 @@ public class TeacherController {
     }
 
     //添加新的测试
-    @RequestMapping(value = "/teacher/test/",method = RequestMethod.POST)
+    @RequestMapping(value = "/teacher/test/")
     @ResponseBody
     public JSONObject addTest(@RequestBody JSONObject jsonObject, @CookieValue("123456") String user_name,HttpServletResponse response) throws IOException, ParseException {
         if(!user_name.equals("123456")){
@@ -454,11 +464,13 @@ public class TeacherController {
         JSONObject re = new JSONObject();
         Test test = new Test();
 
+
         Date start_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("start_time").toString());
         Date end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("end_time").toString());
         test.setStart_time(start_time);
         test.setEnd_time(end_time);
-        test.setTitle(jsonObject.get("start_time").toString());
+        System.out.println(test.getStart_time());
+        test.setTitle(jsonObject.get("title").toString());
         test.setTest_paper(test_paperService.findTest_paperById(Integer.valueOf(jsonObject.get("test_paper_id").toString())));
         testService.addTest(test);
         re.put("status",200);
@@ -495,16 +507,16 @@ public class TeacherController {
             response.sendRedirect("/teacher");
         }
         JSONObject re = new JSONObject();
-       Test test = new Test();
-       test.setId(Integer.valueOf(jsonObject.get("test_id").toString()));
-       test.setTest_paper(test_paperService.findTest_paperById(Integer.valueOf(jsonObject.get("test_paper_id").toString())));
-       test.setTitle(jsonObject.get("title").toString());
-       Date start_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("start_time").toString());
-       Date end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("end_time").toString());
-       test.setStart_time(start_time);
-       test.setEnd_time(end_time);
-       re.put("status",200);
-       return re;
+        Test test = new Test();
+        test.setId(Integer.valueOf(jsonObject.get("test_id").toString()));
+        test.setTest_paper(test_paperService.findTest_paperById(Integer.valueOf(jsonObject.get("test_paper_id").toString())));
+        test.setTitle(jsonObject.get("title").toString());
+        Date start_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("start_time").toString());
+        Date end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("end_time").toString());
+        test.setStart_time(start_time);
+        test.setEnd_time(end_time);
+        re.put("status",200);
+        return re;
 
     }
 
@@ -625,16 +637,18 @@ public class TeacherController {
 
 
     //获取某个学生的信息
-    @RequestMapping(value = "/teacher/student/",method = RequestMethod.GET)
-    @ResponseBody
-    public JSONObject getStudent(@RequestBody JSONObject jsonObject, @CookieValue("123456") String user_name,HttpServletResponse response) throws IOException {
+    @RequestMapping(value = "/teacher/student/{student_id}")
+    public String getStudent(@PathVariable("student_id") String student_id,Model model,@CookieValue("123456") String user_name,HttpServletResponse response) throws IOException {
+
         if(!user_name.equals("123456")){
             response.sendRedirect("/teacher");
         }
-        JSONObject re = new JSONObject();
-        re.put("student_id",jsonObject.get("student_id").toString());
-        re.put("name",studentService.findStudentById(jsonObject.get("student_id").toString()).getName());
-        return re;
+
+        model.addAttribute("student_id",student_id);
+        model.addAttribute("name",studentService.findStudentById(student_id).getName());
+
+
+        return "student";
     }
 
 
@@ -766,18 +780,20 @@ public class TeacherController {
 
 
         Test cur = testService.curentTest();
+
         String start_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cur.getStart_time());
         String end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(cur.getEnd_time());
 
-
         List<String> testStudents = recordService.testStudents(cur.getId());
+
         List<Grade> students = new ArrayList<>();
 
         for(String a : testStudents){
             Grade grade = new Grade(studentService.findStudentById(a).getName()
                     ,recordService.testStudentScore(cur.getId(),a),1,studentService.findStudentById(a).getId());
-           students.add(grade);
+            students.add(grade);
         }
+
         //依据学生成绩排序
         Collections.sort(students, new Comparator<Grade>() {
 

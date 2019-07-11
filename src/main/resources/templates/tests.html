@@ -13,115 +13,115 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">教师题库</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <image class="" src="/static/img/search.png" style="width: 30px;height:30px" onclick="" />
-                </form>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li><a href="../../index">首页</a></li>
-                    <li><a href="../../question/list/1">题库</a></li>
-                    <li><a href="../../test_paper/list/1">试卷</a></li>
-                    <li class="active"><a href="#">测试</a></li>
-                    <li><a href="../../student/list/1">学生</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <div style="display: none" id="add">
-                    <h1>添加测试</h1>
-                    <div class="input-group col-sm-6">
-                        <span class="input-group-addon">测试名称</span>
-                        <input type="text" class="form-control title">
-                        <span class="input-group-addon">试卷编号</span>
-                        <input type="text" class="form-control paper_id">
-
-                    </div>
-                    <br>
-                    <div class="input-group col-sm-6">
-                        <span class="input-group-addon">开始时间</span>
-                        <input type="text" class="form-control start_time">
-                        <span class="input-group-addon">结束时间</span>
-                        <input type="text" class="form-control end_time">
-                    </div>
-                    <br />
-                    <div class="input-group col-sm-6">
-                        <div class="input-group-btn">
-                            <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
-                            </button>
-                            <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-remove" onclick="cancelAdd()"></span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div id="tests">
-                    <div th:if="${total_page} le 0">
-                        <h1>你还没有添加测试</h1>
-                    </div>
-                    <div class="btn-group navbar-right" role="group">
-                        <button type="button" class="btn btn-default" id="edit">
-                            <span class="glyphicon glyphicon-plus" onclick="addTest()"></span>
-                        </button>
-                        <button type="button" class="btn btn-default submit" style="display: none">
-                            <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
-                        </button>
-                    </div>
-                    <div th:if="${total_page} gt 0">
-                        <h2>所有测试</h2>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>测试ID</th>
-                                    <th>测试名称</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="test:${tests}">
-                                    <td><a th:href="@{'../'+${test.test_id}}" th:text="${test.test_id}"></a></td>
-                                    <td th:text="${test.title}"></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <nav aria-label="Page navigation">
-                            <ul class="pagination navbar-right" id="select">
-                                <li>
-                                    <a aria-label="Previous" id="before">
-                                        <span aria-hidden="true">&laquo;</span>
-                                    </a>
-                                </li>
-                                <li id="last">
-                                    <a aria-label="Next" id="after">
-                                        <span aria-hidden="true">&raquo;</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-
-            </div>
-
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">教师题库</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+                <image class="" src="/static/img/search.png" style="width: 30px;height:30px" onclick="" />
+            </form>
         </div>
     </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="../../index">首页</a></li>
+                <li><a href="../../question/list/1">题库</a></li>
+                <li><a href="../../test_paper/list/1">试卷</a></li>
+                <li class="active"><a href="#">测试</a></li>
+                <li><a href="../../student/list/1">学生</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div style="display: none" id="add">
+                <h1>添加测试</h1>
+                <div class="input-group col-sm-6">
+                    <span class="input-group-addon">测试名称</span>
+                    <input type="text" class="form-control title">
+                    <span class="input-group-addon">试卷编号</span>
+                    <input type="text" class="form-control paper_id">
+
+                </div>
+                <br>
+                <div class="input-group col-sm-6">
+                    <span class="input-group-addon">开始时间</span>
+                    <input type="text" class="form-control start_time">
+                    <span class="input-group-addon">结束时间</span>
+                    <input type="text" class="form-control end_time">
+                </div>
+                <br />
+                <div class="input-group col-sm-6">
+                    <div class="input-group-btn">
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
+                        </button>
+                        <button type="button" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove" onclick="cancelAdd()"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div id="tests">
+                <div th:if="${total_page} le 0">
+                    <h1>你还没有添加测试</h1>
+                </div>
+                <div class="btn-group navbar-right" role="group">
+                    <button type="button" class="btn btn-default" id="edit">
+                        <span class="glyphicon glyphicon-plus" onclick="addTest()"></span>
+                    </button>
+                    <button type="button" class="btn btn-default submit" style="display: none">
+                        <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
+                    </button>
+                </div>
+                <div th:if="${total_page} gt 0">
+                    <h2>所有测试</h2>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>测试ID</th>
+                            <th>测试名称</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="test:${tests}">
+                            <td><a th:href="@{'../'+${test.test_id}}" th:text="${test.test_id}"></a></td>
+                            <td th:text="${test.title}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <nav aria-label="Page navigation">
+                        <ul class="pagination navbar-right" id="select">
+                            <li>
+                                <a aria-label="Previous" id="before">
+                                    <span aria-hidden="true">&laquo;</span>
+                                </a>
+                            </li>
+                            <li id="last">
+                                <a aria-label="Next" id="after">
+                                    <span aria-hidden="true">&raquo;</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 </body>
 <script th:inline="javascript">
     $(document).ready(function () {

@@ -58,7 +58,7 @@ function submitAdd() {
                         questions=[];
                         self.location.reload();
                     }
-                    
+
                 }
             })
         }

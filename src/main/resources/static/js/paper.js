@@ -29,7 +29,7 @@ function removePaper() {
             data: JSON.stringify({test_paper_id:test_paper_id}),
             success: function (data) {
                 if (data.status === 200) {
-                    history.back(-1);
+                    history.back();
                     self.location=document.referrer;
                 }
             }
@@ -93,4 +93,9 @@ function cancelAdd() {
     $("#add").find(".id")[0].value = ""
     $("#add").find(".score")[0].value = ""
     $("#add").hide();
+}
+
+function back() {
+    history.back();
+    self.location=document.referrer;
 }

@@ -64,4 +64,5 @@ function cancelAdd() {
     $("#add").find(".password")[0].value = "";
     $("#add").hide();
     $("#students").show();
+    self.location.reload();
 }
