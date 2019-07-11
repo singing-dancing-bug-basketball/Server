@@ -134,73 +134,72 @@
             </div>
             <div th:each="question:${questions}" th:if="${not #lists.isEmpty(questions)}">
                 <div class="panel panel-default" th:id="${question.question_id}">
+                    <button class="btn btn-default edit"
+                            th:onclick="'javascript:editQuestion(\''+${question.question_id}+'\')'">
+                        <span class="glyphicon glyphicon-pencil"></span>
+                    </button>
+                    <button class="btn btn-default delete"
+                            th:onclick="'javascript:deleteQuestion(\''+${question.question_id}+'\')'">
+                        <span class="glyphicon glyphicon-trash"></span>
+                    </button>
+                    <button class="btn btn-default submit" style="display: none"
+                            th:onclick="'javascript:submitQuestion(\''+${question.question_id}+'\')'">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </button>
                     <div class="panel-heading" th:text="题目编号+${question.question_id}">
-
-                        <button type="button" class="btn btn-default edit"
-                                th:onclick="'javascript:editQuestion(\''+${question.question_id}+'\')'">
-                            <span class="glyphicon glyphicon-pencil"></span>
-                        </button>
-                        <button type="button" class="btn btn-default delete"
-                                th:onclick="'javascript:deleteQuestion(\''+${question.question_id}+'\')'">
-                            <span class="glyphicon glyphicon-trash"></span>
-                        </button>
-                        <button type="button" class="btn btn-default submit" style="display: none"
-                                th:onclick="'javascript:submitQuestion(\''+${question.question_id}+'\')'">
-                            <span class="glyphicon glyphicon-ok"></span>
-                        </button>
-
                     </div>
-                </div>
-                <div class="panel-body" style="padding: 0%">
+                    <div class="panel-body" style="padding: 0%">
                         <textarea class="form-contrl content"
                                   style="border: none;resize:none;width: 100%;padding: 1% 0.5%" readonly
                                   th:text="${question.stem}">测试</textarea>
+                    </div>
+
+                    <!-- List group -->
+                    <ul class="list-group" th:each="selection:${question.selections}">
+                        <li class="list-group-item" style="padding: 0%">
+                            <input type="text" class="selections form-contrl list-group-item"
+                                   style="border: none;resize:none;width: 100%" readonly th:value="${selection}">
+                        </li>
+                    </ul>
+
+                    <li class="list-group-item answer">
+                        <div class="row">
+                            <div class="col-lg-3" style="padding: 0% 5%">
+                                <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="radio"  th:attr="name=${question.question_id}" class="check checked_1" disabled="true">
+                                        </span>
+                                    <input type="text" class="form-control" value="A选项" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" style="padding: 0% 5%">
+                                <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="radio" th:attr="name=${question.question_id}" class="check checked_2" disabled="true">
+                                        </span>
+                                    <input type="text" class="form-control" value="B选项" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" style="padding: 0% 5%">
+                                <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="radio" th:attr="name=${question.question_id}" class="check checked_3" disabled="true">
+                                        </span>
+                                    <input type="text" class="form-control" value="C选项" disabled>
+                                </div>
+                            </div>
+                            <div class="col-lg-3" style="padding: 0% 5%">
+                                <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="radio" th:attr="name=${question.question_id}" class="check checked_4" disabled="true">
+                                        </span>
+                                    <input type="text" class="form-control" value="D选项" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
                 </div>
 
-                <!-- List group -->
-                <ul class="list-group" th:each="selection:${question.selections}">
-                    <li class="list-group-item" style="padding: 0%">
-                        <input type="text" class="selections form-contrl list-group-item"
-                               style="border: none;resize:none;width: 100%" readonly th:text="${selection}">
-                    </li>
-                </ul>
-
-                <li class="list-group-item answer">
-                    <div class="row">
-                        <div class="col-lg-3" style="padding: 0% 5%">
-                            <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="answer" class="check checked_1" disabled>
-                                        </span>
-                                <input type="text" class="form-control" value="A选项" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-3" style="padding: 0% 5%">
-                            <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="answer" class="check checked_2" disabled>
-                                        </span>
-                                <input type="text" class="form-control" value="B选项" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-3" style="padding: 0% 5%">
-                            <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="answer" class="check checked_3" disabled>
-                                        </span>
-                                <input type="text" class="form-control" value="C选项" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-3" style="padding: 0% 5%">
-                            <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="answer" class="check checked_4" disabled>
-                                        </span>
-                                <input type="text" class="form-control" value="D选项" disabled>
-                            </div>
-                        </div>
-                    </div>
-                </li>
             </div>
 
         </div>

@@ -47,6 +47,18 @@ public class TeacherController {
     public JSONObject login(@RequestBody JSONObject jsonObject, HttpServletResponse response) throws ParseException {
 
         JSONObject re = new JSONObject();
+
+
+        System.out.println(recordService.existStuTest("1160300527",1));
+
+
+
+
+
+
+
+
+
         if(jsonObject.get("id").equals("123456")&&jsonObject.get("password").equals("123456")){
 
             Cookie cookie=new Cookie("123456","123456");
@@ -71,6 +83,7 @@ public class TeacherController {
       List<String> list = Arrays.asList(b);
       model.addAttribute("selections",list);
       model.addAttribute("answer",a.getSelection_id());
+      model.addAttribute("question_id",question_id);
       return "question";
 
     }
@@ -101,13 +114,11 @@ public class TeacherController {
     //删除问题
     @RequestMapping(value = "/teacher/question/",method = RequestMethod.DELETE)
     @ResponseBody
-    public JSONObject deleteQuestion(@RequestBody JSONObject jsonObject, @CookieValue("123456") String user_name,HttpServletResponse response) throws IOException {
-        if(!user_name.equals("123456")){
-            response.sendRedirect("/teacher");
-        }
+    public JSONObject deleteQuestion(@RequestBody JSONObject jsonObject) throws IOException {
+
         JSONObject re = new JSONObject();
         if(questionService.existsByQustion_id(Integer.valueOf(jsonObject.get("question_id").toString()))){
-
+            questionService.deleteQuestionById(Integer.valueOf(jsonObject.get("question_id").toString()));
             re.put("status",200);
             return  re;
         }
@@ -137,6 +148,7 @@ public class TeacherController {
             for(int i =0;i<list.size()-1;i++){
                 content = content + list.get(i) + "@caixukun@";
             }
+            content = content+ list.get(list.size()-1);
             newquestion.setContent(content);
             questionService.addQustion(newquestion);
             re.put("status",200);
@@ -267,6 +279,7 @@ public class TeacherController {
             a.add(e);
         }
         model.addAttribute("questions",a);
+        model.addAttribute("test_paper_id",test_paper_id);
         return "paper";
     }
 
@@ -445,6 +458,7 @@ public class TeacherController {
         model.addAttribute("start_time",testService.findTestById(test_id).getStart_time());
         model.addAttribute("end_time",testService.findTestById(test_id).getEnd_time());
         model.addAttribute("test_paper_id",testService.findTestById(test_id).getTest_paper().getId());
+        model.addAttribute("test_id",test_id);
         return "test";
     }
 

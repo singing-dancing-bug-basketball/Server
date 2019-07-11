@@ -1,8 +1,7 @@
 function initData(total_page,page,questions){
-    console.log($("#1"));
     for (var i = 0; i < questions.length; i++) {
         var question = questions[i];
-        $("#" + question.question_id).find(".answer").find(".checked_" + question.answer).attr("checked", "true");
+        $("#" + question.question_id).find(".answer").find(".checked_" + question.answer).attr("checked", true);
     }
     var begin;
     var end;
@@ -50,8 +49,8 @@ function deleteQuestion(question_id) {
     var f = confirm("是否确定删除该问题");
     if (f) {
         send("../", JSON.stringify({ "question_id": question_id }), "DELETE", function () {
-            self.location.reload();
-        });
+
+        });self.location.reload();
     }
 }
 
@@ -59,14 +58,15 @@ function submitQuestion(question_id) {
     var father = $("#" + question_id);
     var stem = father.find(".content")[0].value;
     var pattern = /\d/;
-    var answer = Number(father.find("input[name='answer']:checked")[0].className.match(pattern)[0]);
+    var answer = Number(father.find("input[name='"+question_id+"']:checked")[0].className.match(pattern)[0]);
+
     var selections = father.find(".selections");
-    var selectionJson = {};
+    var selectionJson = [];
     for (var i = 0; i < selections.length; i++) {
-        var index = i + 1;
-        selectionJson[index] = selections[i].value;
+        selectionJson.push(selections[i].value);
     }
-    var question = { "question_id": question_id, "stem": stem, "selections": selectionJson, answer: answer };
+    var question = { "question_id": question_id, "stem": stem, "selections": selectionJson, answer: 1 };
+    console.log(question);
     send("../", JSON.stringify(question), "PUT", function () {
         alert("成功修改题目");
         father.find(".content").attr("readonly", true);

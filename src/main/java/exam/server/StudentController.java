@@ -1,6 +1,7 @@
 package exam.server;
 
 import com.alibaba.fastjson.JSONObject;
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import exam.server.StudentService;
@@ -51,15 +52,13 @@ public class StudentController {
     }
 
     //获取某一次测试
-    @RequestMapping(value = "/student/test/",method = RequestMethod.GET)
+    @RequestMapping(value = "/student/test/{test_id}")
     @ResponseBody
-    public JSONObject getTest(@RequestBody JSONObject jsonObject,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
+    public JSONObject getTest(@PathVariable("test_id") int  test_id,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
 
         if(!user_name.equals("CookieTestInfo")){
             response.sendRedirect("/teacher/login/");
         }
-
-        int test_id = Integer.valueOf(jsonObject.get("test_id").toString());
 
         JSONObject re = new JSONObject();
         re.put("cookie",200);
@@ -71,7 +70,6 @@ public class StudentController {
 
         List<Integer> qlist = question_ownershipService.getTestquestion(test_id);
         List<JSONObject> jsonList = new ArrayList<JSONObject>();
-
 
         for(Integer a : qlist){
             JSONObject reNei = new JSONObject();
@@ -94,19 +92,22 @@ public class StudentController {
     }
 
     //获取学生的测试列表
-    @RequestMapping(value = "/student/test/list/",method = RequestMethod.GET)
+    @RequestMapping(value = "/student/test/list/{id}")
     @ResponseBody
-    public JSONObject getTestlist(@RequestBody JSONObject jsonObject,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
+    public JSONObject getTestlist(@PathVariable("id") String student_id,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
         if(!user_name.equals("CookieTestInfo")){
             response.sendRedirect("/teacher/login/");
         }
-
-
-        String student_id = jsonObject.get("id").toString();
         List<JSONObject> jlist = new ArrayList<>();
         List<Integer> testList = testService.getTestidList();
 
+        System.out.println(testList.size());
+        System.out.println(testList.get(0));
+        System.out.println(student_id);
+        System.out.println(recordService.existStuTest(student_id,testList.get(0)));
+
         for(int i =0;i<testList.size();i++){
+
             if(!recordService.existStuTest(student_id,testList.get(i))){
 
                 JSONObject reNei = new JSONObject();
@@ -122,21 +123,18 @@ public class StudentController {
         }
         JSONObject re = new JSONObject();
         re.put("tests",jlist);
+
         return re;
     }
 
     //获取某次测试结果
-    @RequestMapping(value = "student/record/",method = RequestMethod.GET)
+    @RequestMapping(value = "student/record/{student_id}/{test_id}",method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject getTestStu(@RequestBody JSONObject jsonObject,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
+    public JSONObject getTestStu(@PathVariable("student_id") String student_id,@PathVariable("test_id") int test_id,@RequestBody JSONObject jsonObject,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
 
         if(!user_name.equals("CookieTestInfo")){
             response.sendRedirect("/teacher/login/");
         }
-
-
-        String student_id = jsonObject.get("student_id").toString();
-        int test_id = Integer.valueOf(jsonObject.get("test_id").toString());
 
         JSONObject re = new JSONObject();
         List<Integer> qlist = question_ownershipService.getTestquestion(testService.findTestById(test_id).getTest_paper().getId());
@@ -200,16 +198,16 @@ public class StudentController {
 
     }
     //:获取测试结果列表
-    @RequestMapping(value = "/student/record/list/",method = RequestMethod.GET)
+    @RequestMapping(value = "/student/record/list/{student id}",method = RequestMethod.GET)
     @ResponseBody
-    public JSONObject getNnTestlist(@RequestBody JSONObject jsonObject,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
+    public JSONObject getNnTestlist(@PathVariable("student_id") String student_id,@RequestBody JSONObject jsonObject,@CookieValue("cookie") String user_name,HttpServletResponse response) throws IOException {
 
         if(!user_name.equals("CookieTestInfo")){
             response.sendRedirect("/teacher/login/");
         }
 
         JSONObject re = new JSONObject();
-        String student_id = jsonObject.get("student_id").toString();
+
         List<Integer> list = testService.getTestidList();
         List<JSONObject> jlist = new ArrayList<JSONObject>();
         for (Integer a : list) {
@@ -224,7 +222,6 @@ public class StudentController {
                 jlist.add(reNei);
             }
         }
-
         re.put("tests", jlist);
         return re;
     }
