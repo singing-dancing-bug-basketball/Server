@@ -38,10 +38,11 @@
         <div class="row">
             <div class="col-sm-3 col-md-2 sidebar">
                 <ul class="nav nav-sidebar">
-                    <li><a href="index">首页</a></li>
-                    <li><a href="question/list">题库</a></li>
+                    <li><a href="../../index">首页</a></li>
+                    <li><a href="../../question/list/1">题库</a></li>
                     <li class="active"><a href="#">试卷</a></li>
-                    <li><a href="test/list">测试</a></li>
+                    <li><a href="../../test/list/1">测试</a></li>
+                    <li><a href="../../student/list/1">学生</a></li>
                 </ul>
             </div>
 
@@ -93,9 +94,6 @@
                     <div class="btn-group navbar-right" role="group">
                         <button type="button" class="btn btn-default" id="edit">
                             <span class="glyphicon glyphicon-plus" onclick="addPaper()"></span>
-                        </button>
-                        <button type="button" class="btn btn-default submit" style="display: none">
-                            <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
                         </button>
                     </div>
                     <div th:if="${total_page} gt 0">

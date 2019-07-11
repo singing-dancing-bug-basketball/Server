@@ -37,7 +37,7 @@ function removePaper() {
     }
 }
 function deleteQuestion(question_id) {
-    delete_questions.push(JSON.stringify({ question_id: question_id }));
+    delete_questions.push({ question_id: question_id });
     $("#" + question_id).hide();
 }
 
@@ -54,7 +54,7 @@ function submitScore(question_id) {
     $("#" + question_id).find(".editScore").show();
     $("#" + question_id).find(".submitScore").hide();
     $("#" + question_id).find(".cancelScore").hide();
-    questions.push(JSON.stringify({ question_id: question_id, score: parseInt(score) }));
+    questions.push({ question_id: question_id, score: parseInt(score) });
 }
 
 function submitEdit() {
@@ -82,7 +82,7 @@ function addQuestion() {
 function submitAdd() {
     var id = $("#add").find(".id")[0].value;
     var score = $("#add").find(".score")[0].value;
-    questions.push(JSON.stringify({ question_id: id, score: parseInt(score) }));
+    questions.push({ question_id: id, score: parseInt(score) });
     $("#add").find(".id")[0].value = ""
     $("#add").find(".score")[0].value = ""
     $("#add").hide();

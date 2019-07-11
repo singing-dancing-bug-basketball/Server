@@ -1,6 +1,4 @@
 function initData(total_page, page) {
-    var total_page = 10;
-    var page = 5;
     var begin;
     var end;
     $("#before").attr("href", 1);
@@ -44,6 +42,7 @@ function submitAdd() {
     if (title != "" && paper_id != "") {
         if(start_time.match(/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/)!=null){
             var test=JSON.stringify({test_paper_id:paper_id,title:title,start_time:start_time,end_time:end_time});
+            console.log(test);
             $.ajax({
                 type: "POST",
                 url: "../",

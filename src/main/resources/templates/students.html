@@ -3,13 +3,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>登录系统</title>
+    <title>试卷</title>
     <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/navigation.css">
     <link rel="stylesheet" href="/static/css/index.css">
     <script src="/static/bootstrap/js/jquery-3.4.1.min.js"></script>
     <script src="/static/bootstrap/js/popper.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/js/tests.js"></script>
+    <script src="/static/js/students.js"></script>
 </head>
 
 <body>
@@ -39,31 +40,23 @@
                 <ul class="nav nav-sidebar">
                     <li><a href="../../index">首页</a></li>
                     <li><a href="../../question/list/1">题库</a></li>
-                    <li><a href="../../test_paper/list/1">试卷</a></li>
-                    <li class="active"><a href="#">测试</a></li>
-                    <li><a href="../../student/list/1">学生</a></li>
+                    <li><a href="../../paper/list/1">试卷</a></li>
+                    <li><a href="../../test/list/1">测试</a></li>
+                    <liclass="active"><a href="#"><a href="#">学生</a></li>
                 </ul>
             </div>
+
             <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
                 <div style="display: none" id="add">
-                    <h1>添加测试</h1>
+                    <h1>添加学生</h1>
                     <div class="input-group col-sm-6">
-                        <span class="input-group-addon">测试名称</span>
-                        <input type="text" class="form-control title">
-                        <span class="input-group-addon">试卷编号</span>
-                        <input type="text" class="form-control paper_id">
-
-                    </div>
-                    <br>
-                    <div class="input-group col-sm-6">
-                        <span class="input-group-addon">开始时间</span>
-                        <input type="text" class="form-control start_time">
-                        <span class="input-group-addon">结束时间</span>
-                        <input type="text" class="form-control end_time">
-                    </div>
-                    <br />
-                    <div class="input-group col-sm-6">
-                        <div class="input-group-btn">
+                        <span class="input-group-addon">姓名</span>
+                        <input type="text" class="form-control name">
+                        <span class="input-group-addon">学号(min)</span>
+                        <input type="text" class="form-control student_id">
+                        <span class="input-group-addon">密码(min)</span>
+                        <input type="text" class="form-control password">
+                        <div class="input-group-btn navbar-right">
                             <button type="button" class="btn btn-default">
                                 <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
                             </button>
@@ -72,32 +65,42 @@
                             </button>
                         </div>
                     </div>
+                    <br>
+                    <h3>添加的学生</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>学号</th>
+                                <th>姓名</th>
+                            </tr>
+                        </thead>
+                        <tbody id="students_add">
+                        </tbody>
+                    </table>
                 </div>
-                <div id="tests">
+                <div id="students">
                     <div th:if="${total_page} le 0">
-                        <h1>你还没有添加测试</h1>
+                        <h1>你还没有添加学生</h1>
                     </div>
                     <div class="btn-group navbar-right" role="group">
                         <button type="button" class="btn btn-default" id="edit">
-                            <span class="glyphicon glyphicon-plus" onclick="addTest()"></span>
-                        </button>
-                        <button type="button" class="btn btn-default submit" style="display: none">
-                            <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
+                            <span class="glyphicon glyphicon-plus" onclick="addStudent()"></span>
                         </button>
                     </div>
                     <div th:if="${total_page} gt 0">
-                        <h2>所有测试</h2>
+                        <h2>所有学生</h2>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>测试ID</th>
-                                    <th>测试名称</th>
+                                    <th>学号</th>
+                                    <th>姓名</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="test:${tests}">
-                                    <td><a th:href="@{../(test_id=${test.test_id})}" th:text="${test.test_id}"></a></td>
-                                    <td th:text="${test.title"></td>
+                                <tr th:each="studenet:${students}">
+                                    <td><a th:href="@{'../'+${student.student_id}}"
+                                            th:text="${student.student_id}"></a></td>
+                                    <td th:text="${student.name}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -119,6 +122,7 @@
                 </div>
 
             </div>
+
 
         </div>
     </div>

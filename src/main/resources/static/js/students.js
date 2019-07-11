@@ -1,4 +1,4 @@
-var questions = [];
+var students = [];
 function initData(total_page, page) {
     var begin;
     var end;
