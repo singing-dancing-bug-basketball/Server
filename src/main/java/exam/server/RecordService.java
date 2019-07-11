@@ -61,14 +61,20 @@ public class RecordService {
             if(a.getSelection_id()==a.getQuestion().getSelection_id()){
 
                 QuestionOwnerMultiKeys  questionOwnerMultiKeys = new QuestionOwnerMultiKeys();
+
                 questionOwnerMultiKeys.setQuestion_id(a.getRecordMultiKeys().getQuestion_id());
-                questionOwnerMultiKeys.setTest_paper_id(a.getTest().getId());
+                questionOwnerMultiKeys.setTest_paper_id(a.getTest().getTest_paper().getId());
+                System.out.println(questionOwnerMultiKeys.getTest_paper_id());
+                System.out.println(questionOwnerMultiKeys.getQuestion_id());
+
                 sum = sum + question_ownershipService.findQuestion_ownershipById(questionOwnerMultiKeys).getScore();
             }
          }
         }
         return sum;
     }
+
+
 
     public Boolean existStuTest(String student_id,int test_id){
 
