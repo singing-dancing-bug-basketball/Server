@@ -28,4 +28,24 @@ public class QuestionOwnerMultiKeys implements Serializable {
     public void setQuestion_id(int question_id) {
         this.question_id = question_id;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        QuestionOwnerMultiKeys c  = (QuestionOwnerMultiKeys) obj;
+        if(c.getQuestion_id()==this.getQuestion_id()&&c.getTest_paper_id()==this.getTest_paper_id()){
+            return true;
+        }else {
+            return false;
+        }
+     }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = result * 31 + this.getTest_paper_id();
+        result = result * 31 + this.getQuestion_id();
+        return result;
+    }
+
+
 }

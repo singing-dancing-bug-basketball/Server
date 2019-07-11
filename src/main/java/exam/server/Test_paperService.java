@@ -1,5 +1,8 @@
 package exam.server;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,6 +32,12 @@ public class Test_paperService {
     //查询所有
     public List<Test_paper> findAll(){
         return test_paperDao.findAll();
+    }
+
+    //分页查询
+    public Page<Test_paper> getPage(Integer pageNum, Integer pageLimit) {
+        Pageable pageable = PageRequest.of(pageNum-1, pageLimit);
+        return test_paperDao.findAll(pageable);
     }
 
 

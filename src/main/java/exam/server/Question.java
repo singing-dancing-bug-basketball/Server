@@ -37,16 +37,6 @@ public class Question {
         this.stem = stem;
     }
 
-    public  Integer getQustion_id(){
-
-        return selection_id;
-
-    }
-
-    public void setSelection_id(int selection_id){
-        this.selection_id = selection_id;
-    }
-
     public int getSelection_id() {
         return selection_id;
     }
@@ -57,5 +47,9 @@ public class Question {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public void setSelection_id(int selection_id) {
+        this.selection_id = selection_id;
     }
 }

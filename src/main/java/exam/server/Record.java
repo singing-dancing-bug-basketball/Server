@@ -3,21 +3,10 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "record")
-@IdClass(RecordMultiKeys.class)
-
 public class Record {
 
-    @Id
-    @Column(name = "student_id")
-    private String student_id;
-
-    @Id
-    @Column(name = "test_id")
-    private int test_id;
-
-    @Id
-    @Column(name = "question_id")
-    private int question_id;
+    @EmbeddedId
+    private RecordMultiKeys recordMultiKeys;
 
     @ManyToOne
     @JoinColumn(name = "student_id",insertable = false, updatable = false)
@@ -34,28 +23,13 @@ public class Record {
     @Column(name = "selection_id")
     private int selection_id;
 
-    public String getStudent_id() {
-        return student_id;
+
+    public RecordMultiKeys getRecordMultiKeys() {
+        return recordMultiKeys;
     }
 
-    public void setStudent_id(String student_id) {
-        this.student_id = student_id;
-    }
-
-    public void setQuestion_id(int question_id) {
-        this.question_id = question_id;
-    }
-
-    public int getQuestion_id() {
-        return question_id;
-    }
-
-    public int getTest_id() {
-        return test_id;
-    }
-
-    public void setTest_id(int test_id) {
-        this.test_id = test_id;
+    public void setRecordMultiKeys(RecordMultiKeys recordMultiKeys) {
+        this.recordMultiKeys = recordMultiKeys;
     }
 
     public Student getStudent() {

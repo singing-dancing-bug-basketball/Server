@@ -13,44 +13,44 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
-                    aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">教师题库</a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse">
-                <form class="navbar-form navbar-right">
-                    <input type="text" class="form-control" placeholder="Search...">
-                    <button type="button" class="btn btn-default" aria-label="Left Align">
-                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-                    </button>
-                </form>
-            </div>
-        </div>
-    </nav>
+<nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-3 col-md-2 sidebar">
-                <ul class="nav nav-sidebar">
-                    <li><a href="index">首页</a></li>
-                    <li class="active"><a href="#">题库</a></li>
-                    <li><a href="test_paper/list">试卷</a></li>
-                    <li><a href="test/list">测试</a></li>
-                </ul>
-            </div>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                <div th:if="${#lists.isEmpty(questions)}">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">教师题库</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <form class="navbar-form navbar-right">
+                <input type="text" class="form-control" placeholder="Search...">
+                <button type="button" class="btn btn-default" aria-label="Left Align">
+                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                </button>
+            </form>
+        </div>
+    </div>
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+            <ul class="nav nav-sidebar">
+                <li><a href="../../index">首页</a></li>
+                <li class="active"><a href="#">题库</a></li>
+                <li><a href="../../test_paper/list/1">试卷</a></li>
+                <li><a href="../../test/list/1">测试</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+            <div th:if="${#lists.isEmpty(questions)}">
                 <h1>题库空空如也</h1>
             </div>
             <div>
-                <button type="button" class="btn btn-default" >
+                <button type="button" class="btn btn-default">
                     <span class="glyphicon glyphicon-plus" onclick="addQuestion()"></span>
                 </button>
                 添加试题
@@ -71,152 +71,155 @@
                     <textarea class="form-contrl content"
                               style="border: none;resize:none;width: 100%;padding: 1% 1%" placeholder="编辑题目"></textarea>
                 </div>
-              
+
                 <!-- List group -->
                 <ul class="list-group">
-                  <li class="list-group-item">
-                    <label>A.</label>
-                    <input type="text" class="selections form-contrl list-group-item"
-                    style="border: none;resize:none;width: 100%;padding: 0%" >
-                  </li>
-                  <li class="list-group-item">
-                    <label>B.</label>
-                    <input type="text" class="selections form-contrl list-group-item"
-                    style="border: none;resize:none;width: 100%;padding: 0%">
-                  </li>
-                  <li class="list-group-item">
-                      <label>C.</label>
-                    <input type="text" class="selections form-contrl list-group-item"
-                    style="border: none;resize:none;width: 100%;padding:0%">
-                  </li>
-                  <li class="list-group-item">
-                      <label>D.</label>
-                    <input type="text" class="selections form-contrl list-group-item"
-                    style="border: none;resize:none;width: 100%;padding: 0%" >
-                  </li>
-                  <li class="list-group-item answer">正确答案
-                    <div class="row">
-                        <div class="col-lg-3" style="padding: 0% 5%">
-                            <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <input type="radio" name="answer" class="check checked_1" checked>
-                                    </span>
-                                <input type="text" class="form-control" value="A选项" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-3" style="padding: 0% 5%">
-                            <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <input type="radio" name="answer" class="check checked_2">
-                                    </span>
-                                <input type="text" class="form-control" value="B选项" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-3" style="padding: 0% 5%">
-                            <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <input type="radio" name="answer" class="check checked_3">
-                                    </span>
-                                <input type="text" class="form-control" value="C选项" disabled>
-                            </div>
-                        </div>
-                        <div class="col-lg-3" style="padding: 0% 5%">
-                            <div class="input-group">
-                                    <span class="input-group-addon">
-                                        <input type="radio" name="answer" class="check checked_4">
-                                    </span>
-                                <input type="text" class="form-control" value="D选项" disabled>
-                            </div>
-                        </div>
-                    </div>
-                </li>
-                </ul>
-              </div>
-            <div th:each="question:${questions}" th:if="${not #lists.isEmpty(questions)}">
-                <div class="panel panel-default" id="${question.question_id}">
-                    <div class="panel-heading" th:text="题目编号+${question.question_id}">
-
-                            <button type="button" class="btn btn-default edit" th:onclick="'javascript:editQuestion(\''+${question.question_id}+'\')'">
-                                    <span class="glyphicon glyphicon-pencil"></span>
-                            </button>
-                            <button type="button" class="btn btn-default delete" th:onclick="'javascript:deleteQuestion(\''+${question.question_id}+'\')'">
-                                    <span class="glyphicon glyphicon-trash"></span>
-                            </button>
-                            <button type="button" class="btn btn-default submit" style="display: none" th:onclick="'javascript:submitQuestion(\''+${question.question_id}+'\')'">
-                                    <span class="glyphicon glyphicon-ok"></span>
-                            </button>
-
-                        </div>
-                    </div>
-                    <div class="panel-body" style="padding: 0%">
-                        <textarea class="form-contrl content"
-                                  style="border: none;resize:none;width: 100%;padding: 1% 0.5%" readonly
-                                  th:text="${question.stem}">测试</textarea>
-                    </div>
-
-                    <!-- List group -->
-                    <ul class="list-group" th:each="selection:${question.selections}">
-                        <li class="list-group-item" style="padding: 0%">
-                            <input type="text" class="selections form-contrl list-group-item"
-                                   style="border: none;resize:none;width: 100%" readonly th:text="${selection}">
-                        </li>
-                    </ul>
-                    
-                    <li class="list-group-item answer" th:text="正确答案:${question.answer}">正确答案
+                    <li class="list-group-item">
+                        <label>A.</label>
+                        <input type="text" class="selections form-contrl list-group-item"
+                               style="border: none;resize:none;width: 100%;padding: 0%">
+                    </li>
+                    <li class="list-group-item">
+                        <label>B.</label>
+                        <input type="text" class="selections form-contrl list-group-item"
+                               style="border: none;resize:none;width: 100%;padding: 0%">
+                    </li>
+                    <li class="list-group-item">
+                        <label>C.</label>
+                        <input type="text" class="selections form-contrl list-group-item"
+                               style="border: none;resize:none;width: 100%;padding:0%">
+                    </li>
+                    <li class="list-group-item">
+                        <label>D.</label>
+                        <input type="text" class="selections form-contrl list-group-item"
+                               style="border: none;resize:none;width: 100%;padding: 0%">
+                    </li>
+                    <li class="list-group-item answer">正确答案
                         <div class="row">
                             <div class="col-lg-3" style="padding: 0% 5%">
                                 <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="answer" class="check checked_1" disabled>
-                                        </span>
+                                    <span class="input-group-addon">
+                                        <input type="radio" name="answer" class="check checked_1" checked>
+                                    </span>
                                     <input type="text" class="form-control" value="A选项" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-3" style="padding: 0% 5%">
                                 <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="answer" class="check checked_2" disabled>
-                                        </span>
+                                    <span class="input-group-addon">
+                                        <input type="radio" name="answer" class="check checked_2">
+                                    </span>
                                     <input type="text" class="form-control" value="B选项" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-3" style="padding: 0% 5%">
                                 <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="answer" class="check checked_3" disabled>
-                                        </span>
+                                    <span class="input-group-addon">
+                                        <input type="radio" name="answer" class="check checked_3">
+                                    </span>
                                     <input type="text" class="form-control" value="C选项" disabled>
                                 </div>
                             </div>
                             <div class="col-lg-3" style="padding: 0% 5%">
                                 <div class="input-group">
-                                        <span class="input-group-addon">
-                                            <input type="radio" name="answer" class="check checked_4" disabled>
-                                        </span>
+                                    <span class="input-group-addon">
+                                        <input type="radio" name="answer" class="check checked_4">
+                                    </span>
                                     <input type="text" class="form-control" value="D选项" disabled>
                                 </div>
                             </div>
                         </div>
                     </li>
+                </ul>
+            </div>
+            <div th:each="question:${questions}" th:if="${not #lists.isEmpty(questions)}">
+                <div class="panel panel-default" th:id="${question.question_id}">
+                    <div class="panel-heading" th:text="题目编号+${question.question_id}">
+
+                        <button type="button" class="btn btn-default edit"
+                                th:onclick="'javascript:editQuestion(\''+${question.question_id}+'\')'">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </button>
+                        <button type="button" class="btn btn-default delete"
+                                th:onclick="'javascript:deleteQuestion(\''+${question.question_id}+'\')'">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                        <button type="button" class="btn btn-default submit" style="display: none"
+                                th:onclick="'javascript:submitQuestion(\''+${question.question_id}+'\')'">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </button>
+
+                    </div>
+                </div>
+                <div class="panel-body" style="padding: 0%">
+                        <textarea class="form-contrl content"
+                                  style="border: none;resize:none;width: 100%;padding: 1% 0.5%" readonly
+                                  th:text="${question.stem}">测试</textarea>
                 </div>
 
-            </div>
-            <nav aria-label="Page navigation">
-                <ul class="pagination navbar-right" id="select">
-                    <li>
-                        <a aria-label="Previous" id="before">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li id="last">
-                        <a aria-label="Next" id="after">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
+                <!-- List group -->
+                <ul class="list-group" th:each="selection:${question.selections}">
+                    <li class="list-group-item" style="padding: 0%">
+                        <input type="text" class="selections form-contrl list-group-item"
+                               style="border: none;resize:none;width: 100%" readonly th:text="${selection}">
                     </li>
                 </ul>
-            </nav>
+
+                <li class="list-group-item answer">
+                    <div class="row">
+                        <div class="col-lg-3" style="padding: 0% 5%">
+                            <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="radio" name="answer" class="check checked_1" disabled>
+                                        </span>
+                                <input type="text" class="form-control" value="A选项" disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" style="padding: 0% 5%">
+                            <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="radio" name="answer" class="check checked_2" disabled>
+                                        </span>
+                                <input type="text" class="form-control" value="B选项" disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" style="padding: 0% 5%">
+                            <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="radio" name="answer" class="check checked_3" disabled>
+                                        </span>
+                                <input type="text" class="form-control" value="C选项" disabled>
+                            </div>
+                        </div>
+                        <div class="col-lg-3" style="padding: 0% 5%">
+                            <div class="input-group">
+                                        <span class="input-group-addon">
+                                            <input type="radio" name="answer" class="check checked_4" disabled>
+                                        </span>
+                                <input type="text" class="form-control" value="D选项" disabled>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </div>
+
         </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination navbar-right" id="select">
+                <li>
+                    <a aria-label="Previous" id="before">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li id="last">
+                    <a aria-label="Next" id="after">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
+</div>
 </div>
 </body>
 

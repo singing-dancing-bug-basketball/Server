@@ -3,6 +3,8 @@ package exam.server;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.awt.*;
 
@@ -30,12 +32,27 @@ public class Question_ownershipService {
         return question_ownershipDao.findAll();
     }
 
+    //求一张卷子上的所有题目
+
+    public List<Integer> getTestquestion(int test_paper_id){
+        List<Integer> list = new ArrayList<>();
+        for(Question_ownership a : question_ownershipDao.findAll()){
+
+            if(a.getQuestionOwnerMultiKeys().getTest_paper_id() == test_paper_id){
+
+                list.add(a.getQuestionOwnerMultiKeys().getQuestion_id());
+            }
+        }
+
+        return list;
+    }
+
     //求一张卷子的总分
-    public long totalscorebyid(int test_paper_id){
+    public int totalscorebyid(int test_paper_id){
 
         List<Question_ownership>  a = question_ownershipDao.findAll();
 
-        long sum = 0;
+        int sum = 0;
 
         for(Question_ownership b:a){
             if(b.getQuestionOwnerMultiKeys().getTest_paper_id()==test_paper_id) {

@@ -12,5 +12,4 @@ public interface Question_ownershipDao extends JpaRepository<Question_ownership,
 
 
 
-
 }

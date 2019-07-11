@@ -1,11 +1,9 @@
 function initData(total_page,page,questions){
-    var questions = [{ "question_id": 1, "answer": 2 }];
+    console.log($("#1"));
     for (var i = 0; i < questions.length; i++) {
         var question = questions[i];
-        $("#" + question.question_id).children(".answer").find(".checked_" + question.answer).attr("checked", "true");
+        $("#" + question.question_id).find(".answer").find(".checked_" + question.answer).attr("checked", "true");
     }
-    var total_page = 10;
-    var page = 5;
     var begin;
     var end;
     $("#before").attr("href", 1);
@@ -87,9 +85,7 @@ function send(url, data, method, callback) {
         contentType: "application/json;charset=UTF-8;",
         data: data,
         success: function (data) {
-            if (data.status === 200) {
                 callback();
-            }
         }
     })
 }
@@ -104,12 +100,11 @@ function submitAdd() {
     var pattern = /\d/;
     var answer = Number(father.find("input[name='answer']:checked")[0].className.match(pattern)[0]);
     var selections = father.find(".selections");
-    var selectionJson = {};
+    var selection=[];
     for (var i = 0; i < selections.length; i++) {
-        var index = i + 1;
-        selectionJson[index] = selections[i].value;
+        selection[i] = selections[i].value;
     }
-    var question = { "stem": stem, "selections": selectionJson, answer: answer };
+    var question = { "stem": stem, "selections": selection, answer: answer };
     send("../", JSON.stringify(question), "POST", function () {
         document.getElementById("add").style.display = "none";
         self.location.reload();

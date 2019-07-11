@@ -11,7 +11,7 @@ public class Test {
     @Column(name = "test_id")
     private int id;
 
-    @ManyToOne
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "test_paper_id")
     private Test_paper test_paper;
 
@@ -56,5 +56,9 @@ public class Test {
 
     public void setEnd_time(Date end_time) {
         this.end_time = end_time;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }
