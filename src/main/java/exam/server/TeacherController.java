@@ -48,17 +48,6 @@ public class TeacherController {
 
         JSONObject re = new JSONObject();
 
-
-        System.out.println(recordService.existStuTest("1160300527",1));
-
-
-
-
-
-
-
-
-
         if(jsonObject.get("id").equals("123456")&&jsonObject.get("password").equals("123456")){
 
             Cookie cookie=new Cookie("123456","123456");
@@ -274,8 +263,12 @@ public class TeacherController {
         for(Integer d : b){
             String[] f = questionService.findQuestionById(d).getContent().split("@caixukun@");
             List<String> g = Arrays.asList(f);
+            QuestionOwnerMultiKeys questionOwnerMultiKeys = new QuestionOwnerMultiKeys();
+            questionOwnerMultiKeys.setQuestion_id(d);
+            questionOwnerMultiKeys.setTest_paper_id(test_paper_id);
             Questionslei e = new Questionslei(d,questionService.findQuestionById(d).getStem(),g,
-                    questionService.findQuestionById(d).getSelection_id());
+                    questionService.findQuestionById(d).getSelection_id(),
+                    question_ownershipService.findQuestion_ownershipById(questionOwnerMultiKeys).getScore());
             a.add(e);
         }
         model.addAttribute("questions",a);
