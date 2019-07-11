@@ -1,5 +1,6 @@
 package exam.server;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -277,7 +278,7 @@ public class TeacherController {
     }
 
     //添加新的试卷
-    @RequestMapping(value = "/teacher/test_paper/",method = RequestMethod.GET)
+    @RequestMapping(value = "/teacher/test_paper/",method = RequestMethod.POST)
     @ResponseBody
     public JSONObject addTest_paper(@RequestBody JSONObject jsonObject, @CookieValue("123456") String user_name,HttpServletResponse response) throws IOException {
         if(!user_name.equals("123456")){
@@ -291,10 +292,10 @@ public class TeacherController {
         test_paperService.addTest_paper(newTest_paper);
         Question_ownership newQuestion_ownership = new Question_ownership();
 
-        List<JSONObject> a = (List<JSONObject>) jsonObject.get("questions");
+        JSONArray a = jsonObject.getJSONArray("questions");
 
-        for(JSONObject b : a){
-
+        for(int i =0;i<a.size();i++){
+            JSONObject b = a.getJSONObject(i);
             QuestionOwnerMultiKeys questionOwnerMultiKeys = new QuestionOwnerMultiKeys();
             questionOwnerMultiKeys.setTest_paper_id(newTest_paper.getId());
             questionOwnerMultiKeys.setQuestion_id(Integer.valueOf(b.get("question_id").toString()));
@@ -339,9 +340,11 @@ public class TeacherController {
         }
         JSONObject re = new JSONObject();
 
-        List<JSONObject> a = (List<JSONObject>) jsonObject.get("delete_questions");
 
-        for(JSONObject b : a){
+        JSONArray a = jsonObject.getJSONArray("delete_questions");
+
+        for(int i =0;i<a.size();i++){
+            JSONObject b = a.getJSONObject(i);
             for(Question_ownership c : question_ownershipService.findAll()){
                 if(c.getQuestionOwnerMultiKeys().getQuestion_id()==Integer.valueOf(b.get("question_id").toString())){
                     question_ownershipService.deleteQuestion_ownershipById(c.getQuestionOwnerMultiKeys());
@@ -355,9 +358,10 @@ public class TeacherController {
         test_paper.setTitle(jsonObject.get("title").toString());
         test_paperService.addTest_paper(test_paper);
 
-        List<JSONObject> d = (List<JSONObject>) jsonObject.get("questions");
+        JSONArray d = jsonObject.getJSONArray("questions");
 
-        for(JSONObject e : d){
+        for(int i =0;i<d.size();i++){
+            JSONObject e = d.getJSONObject(i);
             Question_ownership question_ownership = new Question_ownership();
             question_ownership.setScore(Integer.valueOf(e.get("score").toString()));
             QuestionOwnerMultiKeys questionOwnerMultiKeys = new QuestionOwnerMultiKeys();

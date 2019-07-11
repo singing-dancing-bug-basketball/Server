@@ -1,5 +1,6 @@
 package exam.server;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 import org.springframework.stereotype.Controller;
@@ -194,9 +195,13 @@ public class StudentController {
         JSONObject re = new JSONObject();
         String student_id = jsonObject.get("student_id").toString();
         int test_id = Integer.valueOf(jsonObject.get("test_id").toString());
-        List<JSONObject> jlist = (List<JSONObject>)jsonObject.get("selections");
 
-        for(JSONObject j : jlist){
+
+
+        JSONArray jlist = jsonObject.getJSONArray("selections");
+
+        for(int i =0;i<jlist.size();i++){
+            JSONObject j = jlist.getJSONObject(i);
             RecordMultiKeys recordMultiKeys = new RecordMultiKeys();
             recordMultiKeys.setStudent_id(student_id);
             recordMultiKeys.setTest_id(test_id);
