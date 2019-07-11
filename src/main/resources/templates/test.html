@@ -4,12 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <title>登录系统</title>
-    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/css/index.css">
-    <script src="../static/bootstrap/js/jquery-3.4.1.min.js"></script>
-    <script src="../static/bootstrap/js/popper.min.js"></script>
-    <script src="../static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="../static/js/test.js"></script>
+    <link rel="stylesheet" href="/static/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/index.css">
+    <script src="/static/bootstrap/js/jquery-3.4.1.min.js"></script>
+    <script src="/static/bootstrap/js/popper.min.js"></script>
+    <script src="/static/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js/test.js"></script>
 </head>
 
 <body>
@@ -39,8 +39,8 @@
                 <ul class="nav nav-sidebar">
                     <li><a href="../index">首页</a></li>
                     <li><a href="../question/list/1">题库</a></li>
-                    <li><a href="..test_paper/list/1">试卷</a></li>
-                    <li class="active"><a href="#">测试</a></li>
+                    <li><a href="../test_paper/list/1">试卷</a></li>
+                    <li class="active"><a href="list/1">测试</a></li>
                     <li><a href="../student/list/1">学生</a></li>
                 </ul>
             </div>
@@ -61,26 +61,25 @@
                 </div>
                 <div>
                     <h2>测试名:
-                        <input type="text" class="edit" id="title" th:text="${test_title}"
-                            style="border: hidden;background: 0%" value="测试" disabled>
+                        <input type="text" class="edit" id="title"
+                            style="border: hidden;background: 0%" th:value="${test_title}" disabled>
                     </h2>
-                    <h3>试卷ID:
-                        <input type="text" class="edit" id="test_paper_id" th:text="${test_paper_id}"
-                            style="border: hidden;background: 0%" value="50" disabled>
-                    </h3>
-                    <h3>试卷名:<p th:text="${test_paper_title}"></p>
+                    <h3><p th:text="'试卷ID:'+${test_paper_id}"></p>
+                    <h3>试卷名:
+                        <input type="text" class="edit" id="test_paper_id"
+                               style="border: hidden;background: 0%" th:value="${test_paper_title}" disabled>
                     </h3>
                     <h3>时长:
-                        <input type="text" class="edit" id="duration" th:text="${duration}"
-                            style="border: hidden;background: 0%" value="50" disabled>
+                        <input type="text" class="edit" id="duration" th:value="${duration}"
+                            style="border: hidden;background: 0%" disabled>
                     </h3>
                     <h3>开始时间:
-                        <input type="text" class="edit" id="start_time" th:text="${start_time}"
-                            style="border: hidden;background: 0%" value="50" disabled>
+                        <input type="text" class="edit" id="start_time" th:value="${start_time}"
+                            style="border: hidden;background: 0%" disabled>
                     </h3>
                     <h3>结束时间:
-                        <input type="text" class="edit" id="end_time" th:text="${start_time}"
-                            style="border: hidden;background: 0%" value="50" disabled>
+                        <input type="text" class="edit" id="end_time" th:value="${start_time}"
+                            style="border: hidden;background: 0%" disabled>
                     </h3>
                 </div>
             </div>

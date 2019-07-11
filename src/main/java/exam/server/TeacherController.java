@@ -524,7 +524,7 @@ public class TeacherController {
         }
         model.addAttribute("page",pagenum);
         model.addAttribute("total_page",page.getTotalPages());
-        model.addAttribute("test_papers",pageq);
+        model.addAttribute("tests",pageq);
         return "tests";
     }
 

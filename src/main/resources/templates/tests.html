@@ -96,8 +96,8 @@
                             </thead>
                             <tbody>
                                 <tr th:each="test:${tests}">
-                                    <td><a th:href="@{../(test_id=${test.test_id})}" th:text="${test.test_id}"></a></td>
-                                    <td th:text="${test.title"></td>
+                                    <td><a th:href="@{'../'+${test.test_id}}" th:text="${test.test_id}"></a></td>
+                                    <td th:text="${test.title}"></td>
                                 </tr>
                             </tbody>
                         </table>

@@ -58,7 +58,7 @@
                         <input type="text" class="form-control password">
                         <div class="input-group-btn navbar-right">
                             <button type="button" class="btn btn-default">
-                                <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
+                                <span class="glyphicon glyphicon-ok" onclick="addStudent()"></span>
                             </button>
                             <button type="button" class="btn btn-default">
                                 <span class="glyphicon glyphicon-remove" onclick="cancelAdd()"></span>
@@ -66,17 +66,6 @@
                         </div>
                     </div>
                     <br>
-                    <h3>添加的学生</h3>
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>学号</th>
-                                <th>姓名</th>
-                            </tr>
-                        </thead>
-                        <tbody id="students_add">
-                        </tbody>
-                    </table>
                 </div>
                 <div id="students">
                     <div th:if="${total_page} le 0">
@@ -84,7 +73,7 @@
                     </div>
                     <div class="btn-group navbar-right" role="group">
                         <button type="button" class="btn btn-default" id="edit">
-                            <span class="glyphicon glyphicon-plus" onclick="addStudent()"></span>
+                            <span class="glyphicon glyphicon-plus" onclick="addStudents()"></span>
                         </button>
                     </div>
                     <div th:if="${total_page} gt 0">
@@ -98,8 +87,8 @@
                             </thead>
                             <tbody>
                                 <tr th:each="student:${students}">
-                                    <td><a th:href="@{'../'+${student.student_id}}"
-                                            th:text="${student.student_id}"></a></td>
+                                    <td><a th:href="@{'../'+${student.student_id}}" th:text="${student.student_id}"></a>
+                                    </td>
                                     <td th:text="${student.name}"></td>
                                 </tr>
                             </tbody>

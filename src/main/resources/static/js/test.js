@@ -66,7 +66,7 @@ function submitEdit(){
     console.log(data)
     $.ajax({
         type: "PUT",
-        url: "../",
+        url: "",
         contentType: "application/json;charset=UTF-8;",
         data: data,
         success: function (data) {
