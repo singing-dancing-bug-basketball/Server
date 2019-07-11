@@ -445,7 +445,7 @@ public class TeacherController {
     }
 
     //添加新的测试
-    @RequestMapping(value = "/teacher/test/",method = RequestMethod.POST)
+    @RequestMapping(value = "/teacher/test/")
     @ResponseBody
     public JSONObject addTest(@RequestBody JSONObject jsonObject, @CookieValue("123456") String user_name,HttpServletResponse response) throws IOException, ParseException {
         if(!user_name.equals("123456")){
@@ -454,11 +454,13 @@ public class TeacherController {
         JSONObject re = new JSONObject();
         Test test = new Test();
 
+
         Date start_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("start_time").toString());
         Date end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("end_time").toString());
         test.setStart_time(start_time);
         test.setEnd_time(end_time);
-        test.setTitle(jsonObject.get("start_time").toString());
+        System.out.println(test.getStart_time());
+        test.setTitle(jsonObject.get("title").toString());
         test.setTest_paper(test_paperService.findTest_paperById(Integer.valueOf(jsonObject.get("test_paper_id").toString())));
         testService.addTest(test);
         re.put("status",200);
@@ -625,16 +627,17 @@ public class TeacherController {
 
 
     //获取某个学生的信息
-    @RequestMapping(value = "/teacher/student/",method = RequestMethod.GET)
-    @ResponseBody
-    public JSONObject getStudent(@RequestBody JSONObject jsonObject, @CookieValue("123456") String user_name,HttpServletResponse response) throws IOException {
+    @RequestMapping(value = "/teacher/student/{student_id}")
+    public String getStudent(@PathVariable("student_id") String student_id,Model model,@CookieValue("123456") String user_name,HttpServletResponse response) throws IOException {
+
         if(!user_name.equals("123456")){
             response.sendRedirect("/teacher");
         }
-        JSONObject re = new JSONObject();
-        re.put("student_id",jsonObject.get("student_id").toString());
-        re.put("name",studentService.findStudentById(jsonObject.get("student_id").toString()).getName());
-        return re;
+
+        model.addAttribute("student_id",student_id);
+        model.addAttribute(studentService.findStudentById(student_id).getName());
+
+        return "student";
     }
 
 

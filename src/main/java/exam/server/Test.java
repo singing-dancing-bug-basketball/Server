@@ -11,7 +11,7 @@ public class Test {
     @Column(name = "test_id")
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne()
     @JoinColumn(name = "test_paper_id")
     private Test_paper test_paper;
 
