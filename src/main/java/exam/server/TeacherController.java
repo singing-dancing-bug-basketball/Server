@@ -359,6 +359,7 @@ public class TeacherController {
         test_paperService.addTest_paper(test_paper);
 
         JSONArray d = jsonObject.getJSONArray("questions");
+        System.out.println(d);
 
         for(int i =0;i<d.size();i++){
             JSONObject e = d.getJSONObject(i);
@@ -366,7 +367,7 @@ public class TeacherController {
             question_ownership.setScore(Integer.valueOf(e.get("score").toString()));
             QuestionOwnerMultiKeys questionOwnerMultiKeys = new QuestionOwnerMultiKeys();
             questionOwnerMultiKeys.setTest_paper_id(Integer.valueOf(jsonObject.get("test_paper_id").toString()));
-            questionOwnerMultiKeys.setQuestion_id(Integer.valueOf(jsonObject.get("question_id").toString()));
+            questionOwnerMultiKeys.setQuestion_id(Integer.valueOf(e.get("question_id").toString()));
             question_ownership.setQuestionOwnerMultiKeys(questionOwnerMultiKeys);
             question_ownershipService.addQuestion_ownership(question_ownership);
         }
@@ -734,6 +735,7 @@ public class TeacherController {
         model.addAttribute("page",pagenum);
         model.addAttribute("total_page",page.getTotalPages());
         model.addAttribute("students",pageq);
+
         return "students";
     }
 
