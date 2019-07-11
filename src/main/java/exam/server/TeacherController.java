@@ -61,22 +61,6 @@ public class TeacherController {
         return re;
     }
 
-    //获取某个问题
-    @RequestMapping(value="/teacher/student/list/{question_id}")
-    public String getQuestion (@PathVariable("question_id") Integer question_id,Model model, @CookieValue("123456") String user_name,HttpServletResponse response) throws IOException {
-        if(!user_name.equals("123456")){
-            response.sendRedirect("/teacher");
-        }
-      Question a = questionService.findQuestionById(question_id);
-      model.addAttribute("stem",a.getStem());
-      String[] b = a.getContent().split("@caixunkun@");
-      List<String> list = Arrays.asList(b);
-      model.addAttribute("selections",list);
-      model.addAttribute("answer",a.getSelection_id());
-      model.addAttribute("question_id",question_id);
-      return "question";
-
-    }
 
     //添加新的问题
     @RequestMapping(value = "/teacher/question/",method = RequestMethod.POST)
@@ -573,7 +557,7 @@ public class TeacherController {
 
 
     //获取某次测试结果
-    @RequestMapping(value="/teacher/student/list/{test_id}")
+    @RequestMapping(value="/teacher/record/{test_id}")
     public String getTestResult(@PathVariable("test_id") Integer test_id,Model model, @CookieValue("123456") String user_name,HttpServletResponse response) throws IOException {
         if(!user_name.equals("123456")){
             response.sendRedirect("/teacher");

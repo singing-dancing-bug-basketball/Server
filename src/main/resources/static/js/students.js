@@ -32,13 +32,13 @@ function initData(total_page, page) {
     }
 }
 
-function addPaper() {
+function addStudents() {
     $("#add").show();
-    $("#papers").hide();
+    $("#students").hide();
 }
 
 function addQuestion() {
-    var question_id = $("#add").find(".question_id")[0].value;
+    var question_id = $("#add").find(".student_id")[0].value;
     var score = $("#add").find(".score")[0].value;
     if (question != "" && score != "") {
         var question = { question_id: question_id, score: parseInt(score) };

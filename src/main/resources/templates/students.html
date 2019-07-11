@@ -42,7 +42,7 @@
                     <li><a href="../../question/list/1">题库</a></li>
                     <li><a href="../../paper/list/1">试卷</a></li>
                     <li><a href="../../test/list/1">测试</a></li>
-                    <liclass="active"><a href="#"><a href="#">学生</a></li>
+                    <li class="active"><a href="#">学生</a></li>
                 </ul>
             </div>
 
@@ -97,7 +97,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="studenet:${students}">
+                                <tr th:each="student:${students}">
                                     <td><a th:href="@{'../'+${student.student_id}}"
                                             th:text="${student.student_id}"></a></td>
                                     <td th:text="${student.name}"></td>
