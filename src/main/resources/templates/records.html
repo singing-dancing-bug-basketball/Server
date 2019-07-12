@@ -9,7 +9,7 @@
     <script src="/static/bootstrap/js/jquery-3.4.1.min.js"></script>
     <script src="/static/bootstrap/js/popper.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-    <script src="/static/js/tests.js"></script>
+    <script src="/static/js/records.js"></script>
 </head>
 
 <body>
@@ -40,54 +40,18 @@
                 <li><a href="../../index">首页</a></li>
                 <li><a href="../../question/list/1">题库</a></li>
                 <li><a href="../../test_paper/list/1">试卷</a></li>
-                <li class="active"><a href="#">测试</a></li>
+                <li><a href="../../record/list/1">测试</a></li>
                 <li><a href="../../student/list/1">学生</a></li>
-                <li><a href="../../record/list/1">记录</a></li>
+                <li class="active"><a href="#">记录</a></li>
             </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-            <div style="display: none" id="add">
-                <h1>添加测试</h1>
-                <div class="input-group col-sm-6">
-                    <span class="input-group-addon">测试名称</span>
-                    <input type="text" class="form-control title">
-                    <span class="input-group-addon">试卷编号</span>
-                    <input type="text" class="form-control paper_id">
-
-                </div>
-                <br>
-                <div class="input-group col-sm-6">
-                    <span class="input-group-addon">开始时间</span>
-                    <input type="text" class="form-control start_time">
-                    <span class="input-group-addon">结束时间</span>
-                    <input type="text" class="form-control end_time">
-                </div>
-                <br />
-                <div class="input-group col-sm-6">
-                    <div class="input-group-btn">
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
-                        </button>
-                        <button type="button" class="btn btn-default">
-                            <span class="glyphicon glyphicon-remove" onclick="cancelAdd()"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
             <div id="tests">
                 <div th:if="${total_page} le 0">
-                    <h1>你还没有添加测试</h1>
-                </div>
-                <div class="btn-group navbar-right" role="group">
-                    <button type="button" class="btn btn-default" id="edit">
-                        <span class="glyphicon glyphicon-plus" onclick="addTest()"></span>
-                    </button>
-                    <button type="button" class="btn btn-default submit" style="display: none">
-                        <span class="glyphicon glyphicon-ok" onclick="submitAdd()"></span>
-                    </button>
+                    <h1>你还没有测试记录</h1>
                 </div>
                 <div th:if="${total_page} gt 0">
-                    <h2>所有测试</h2>
+                    <h2>所有记录</h2>
                     <table class="table table-striped">
                         <thead>
                         <tr>

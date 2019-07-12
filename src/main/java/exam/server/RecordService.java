@@ -64,8 +64,6 @@ public class RecordService {
 
                 questionOwnerMultiKeys.setQuestion_id(a.getRecordMultiKeys().getQuestion_id());
                 questionOwnerMultiKeys.setTest_paper_id(a.getTest().getTest_paper().getId());
-                System.out.println(questionOwnerMultiKeys.getTest_paper_id());
-                System.out.println(questionOwnerMultiKeys.getQuestion_id());
 
                 sum = sum + question_ownershipService.findQuestion_ownershipById(questionOwnerMultiKeys).getScore();
             }

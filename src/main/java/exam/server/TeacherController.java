@@ -511,10 +511,12 @@ public class TeacherController {
         test.setId(Integer.valueOf(jsonObject.get("test_id").toString()));
         test.setTest_paper(test_paperService.findTest_paperById(Integer.valueOf(jsonObject.get("test_paper_id").toString())));
         test.setTitle(jsonObject.get("title").toString());
+
         Date start_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("start_time").toString());
         Date end_time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(jsonObject.get("end_time").toString());
         test.setStart_time(start_time);
         test.setEnd_time(end_time);
+        testService.addTest(test);
         re.put("status",200);
         return re;
 
@@ -567,6 +569,27 @@ public class TeacherController {
 
     }
 
+    //获取测试列表
+    @RequestMapping(value="/teacher/record/list/{page}")
+    public String getRecordlist(@PathVariable("page") Integer pagenum,Model model, @CookieValue("123456") String user_name,HttpServletResponse response) throws IOException {
+
+        if(!user_name.equals("123456")){
+            response.sendRedirect("/teacher");
+        }
+        Page<Test> page = testService.getPage(pagenum,20);
+        List<Testlei> pageq = new ArrayList<Testlei>();
+
+        for(int i =0;i<page.getContent().size();i++){
+            Testlei a = new Testlei(page.getContent().get(i).getId(),page.getContent().get(i).getTitle());
+            pageq.add(a);
+        }
+
+        model.addAttribute("page",pagenum);
+        model.addAttribute("total_page",page.getTotalPages());
+        model.addAttribute("tests",pageq);
+        return "records";
+    }
+
 
     //获取某次测试结果
     @RequestMapping(value="/teacher/record/{test_id}")
@@ -590,7 +613,7 @@ public class TeacherController {
         }
         float avg = sum/list.size();
         model.addAttribute("student_average",avg);
-        return "testResult";
+        return "record";
     }
 
     class Studentslei2{

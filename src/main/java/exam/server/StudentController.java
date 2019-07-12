@@ -68,12 +68,15 @@ public class StudentController {
 
         JSONObject re = new JSONObject();
 
+
+
         re.put("title",testService.findTestById(test_id).getTitle());
         re.put("duration",testService.findTestById(test_id).getTest_paper().getDuration());
         re.put("start_time",testService.findTestById(test_id).getStart_time());
         re.put("end_time",testService.findTestById(test_id).getEnd_time());
 
-        List<Integer> qlist = question_ownershipService.getTestquestion(test_id);
+        List<Integer> qlist = question_ownershipService.getTestquestion(testService.findTestById(test_id).getTest_paper().getId());
+
         List<JSONObject> jsonList = new ArrayList<JSONObject>();
 
         for(Integer a : qlist){
@@ -161,11 +164,14 @@ public class StudentController {
             recordMultiKeys.setTest_id(test_id);
             recordMultiKeys.setStudent_id(student_id);
 
+
             reNei.put("selection",recordService.findRecordById(recordMultiKeys).getSelection_id());
             reNei.put("answer",questionService.findQuestionById(a).getSelection_id());
+            System.out.println(a);
+            System.out.println(reNei.get("answer").toString());
 
             QuestionOwnerMultiKeys questionOwnerMultiKeys = new QuestionOwnerMultiKeys();
-            questionOwnerMultiKeys.setTest_paper_id(test_id);
+            questionOwnerMultiKeys.setTest_paper_id(testService.findTestById(test_id).getTest_paper().getId());
             questionOwnerMultiKeys.setQuestion_id(a);
             reNei.put("score",question_ownershipService.findQuestion_ownershipById(questionOwnerMultiKeys).getScore());
             jList.add(reNei);
@@ -241,6 +247,10 @@ public class StudentController {
                 reNei.put("title", testService.findTestById(a).getTitle());
                 reNei.put("start_time", testService.findTestById(a).getStart_time());
                 reNei.put("end_time", testService.findTestById(a).getEnd_time());
+                reNei.put("user_score",recordService.testStudentScore(a,student_id) );
+
+                reNei.put("total_score",question_ownershipService.totalscorebyid(testService.findTestById(a).getTest_paper().getId()));
+
                 reNei.put("duration", testService.findTestById(a).getTest_paper().getDuration());
                 jlist.add(reNei);
             }
