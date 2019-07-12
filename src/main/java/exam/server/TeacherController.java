@@ -61,6 +61,16 @@ public class TeacherController {
         return re;
     }
 
+    @RequestMapping(value = "teacher/logout")
+    public String login( HttpServletResponse response){
+
+        Cookie cookie=new Cookie("123456",null);
+        response.addCookie(cookie);
+        return "login";
+    }
+
+
+
 
     //添加新的问题
     @RequestMapping(value = "/teacher/question/",method = RequestMethod.POST)
